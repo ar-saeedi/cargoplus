@@ -1,0 +1,22 @@
+{
+  "name": "cargoplus-marketplace",
+  "version": "1.0.0",
+  "description": "CargoPlus - Persian B2B/B2C Marketplace - Similar to 1688.com",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"yarn workspace frontend dev\" \"yarn workspace backend dev\"",
+    "build": "yarn workspace frontend build && yarn workspace backend build",
+    "start": "concurrently \"yarn workspace frontend start\" \"yarn workspace backend start\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+
