@@ -64,86 +64,98 @@
 - 💾 File Storage با Supabase Storage
 - 🔌 RESTful API
 
-## نصب و راه‌اندازی
+## 🚀 Getting Started
 
-### پیش‌نیازها
+### Prerequisites
 - Node.js v18+
-- Yarn یا npm
-- حساب Supabase
+- Yarn or npm
+- Supabase account
 
-### راه‌اندازی
+### Installation
 
-1. **نصب Dependencies**
+1. **Install Dependencies**
 \`\`\`bash
 yarn install
 \`\`\`
 
-2. **تنظیم متغیرهای محیطی**
+2. **Configure Environment Variables**
 
-فایل `.env` را در پوشه `frontend` ایجاد کنید:
-\`\`\`
+Create `.env` file in `frontend` folder:
+\`\`\`env
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 VITE_API_URL=http://localhost:9000
 \`\`\`
 
-فایل `.env` را در پوشه `backend` ایجاد کنید:
-\`\`\`
+Create `.env` file in `backend` folder:
+\`\`\`env
 DATABASE_URL=your_supabase_database_url
 SUPABASE_URL=your_supabase_url
 SUPABASE_SERVICE_KEY=your_supabase_service_key
 JWT_SECRET=your_jwt_secret
 \`\`\`
 
-3. **اجرای پروژه**
+3. **Run Development Server**
 \`\`\`bash
 yarn dev
 \`\`\`
 
-Frontend: http://localhost:5173
-Backend: http://localhost:9000
+- **Frontend**: http://localhost:5173
+- **Backend**: http://localhost:9000
 
-## ساختار پروژه
+## 📁 Project Structure
 
 \`\`\`
-persian-marketplace/
-├── frontend/               # React Frontend
+cargoplus-marketplace/
+├── frontend/                 # React Frontend
 │   ├── src/
-│   │   ├── components/    # کامپوننت‌های قابل استفاده مجدد
-│   │   ├── pages/         # صفحات اصلی
-│   │   ├── layouts/       # لی‌اوت‌ها
-│   │   ├── services/      # API calls
-│   │   ├── hooks/         # Custom hooks
-│   │   ├── utils/         # توابع کمکی
-│   │   ├── locales/       # فایل‌های ترجمه
-│   │   └── styles/        # استایل‌های سراسری
-│   └── public/            # فایل‌های استاتیک
-├── backend/               # MedusaJS Backend
+│   │   ├── components/      # Reusable components
+│   │   ├── pages/           # Page components
+│   │   ├── layouts/         # Layout components
+│   │   ├── lib/             # Third-party integrations
+│   │   ├── store/           # State management (Zustand)
+│   │   ├── utils/           # Utility functions
+│   │   └── locales/         # i18n translation files
+│   └── public/              # Static assets
+├── backend/                  # MedusaJS Backend (Future)
 │   ├── src/
-│   │   ├── api/          # API routes
-│   │   ├── models/       # Database models
-│   │   ├── services/     # Business logic
-│   │   └── subscribers/  # Event handlers
+│   │   ├── api/             # API routes
+│   │   ├── models/          # Database models
+│   │   ├── services/        # Business logic
+│   │   └── subscribers/     # Event handlers
 │   └── medusa-config.js
-└── README.md
+├── README.md
+├── SETUP.md                  # Detailed setup guide
+├── DEPLOYMENT.md             # Production deployment guide
+└── package.json
 \`\`\`
 
-## 📄 لایسنس
+## 📄 License
 
-این پروژه تحت لایسنس MIT منتشر شده است.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🤝 مشارکت
+## 🤝 Contributing
 
-برای مشارکت در این پروژه:
-1. Repository را Fork کنید
-2. یک Branch جدید ایجاد کنید (`git checkout -b feature/amazing-feature`)
-3. تغییرات خود را Commit کنید (`git commit -m 'Add amazing feature'`)
-4. به Branch خود Push کنید (`git push origin feature/amazing-feature`)
-5. یک Pull Request باز کنید
+Contributions are welcome! To contribute to this project:
 
-## 💬 پشتیبانی و تماس
+1. **Fork the repository**
+2. **Create a new branch**
+   \`\`\`bash
+   git checkout -b feature/amazing-feature
+   \`\`\`
+3. **Commit your changes**
+   \`\`\`bash
+   git commit -m 'Add some amazing feature'
+   \`\`\`
+4. **Push to the branch**
+   \`\`\`bash
+   git push origin feature/amazing-feature
+   \`\`\`
+5. **Open a Pull Request**
 
-برای سوالات، پیشنهادات یا گزارش مشکلات:
+## 💬 Support & Contact
+
+For questions, suggestions, or issues:
 
 - 📧 Email: [alirezasaeediofficial@gmail.com](mailto:alirezasaeediofficial@gmail.com)
 - 💬 Telegram: [@AR_Saeedi](https://t.me/AR_Saeedi)
@@ -153,9 +165,12 @@ persian-marketplace/
 
 <div align="center">
 
-**ساخته شده با ❤️ توسط Alireza Saeedi**
+**Made with ❤️ by Alireza Saeedi**
 
 [![GitHub](https://img.shields.io/badge/GitHub-ar--saeedi-181717?logo=github)](https://github.com/ar-saeedi)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Visit-0A66C2?logo=google-chrome&logoColor=white)](https://github.com/ar-saeedi)
+
+⭐ **Star this repo if you find it helpful!**
 
 </div>
 
