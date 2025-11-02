@@ -1,11 +1,19 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useNavigate, useLocation, useOutletContext } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Upload, X, Plus } from 'lucide-react'
+import { useAuthStore } from '../../store/authStore'
+import { createProduct, uploadImage } from '../../services/vendorService'
 
 export default function AddProductPage() {
   const { t } = useTranslation()
+  const { user } = useAuthStore()
   const navigate = useNavigate()
+  const location = useLocation()
+  const context = useOutletContext()
+  const isInternational = location.pathname.includes('/international')
+  const language = context?.language || 'fa'
+  
   const [formData, setFormData] = useState({
     name: '',
     category: '',
@@ -17,7 +25,91 @@ export default function AddProductPage() {
     specifications: '',
   })
   const [images, setImages] = useState([])
+  const [imageFiles, setImageFiles] = useState([])
   const [loading, setLoading] = useState(false)
+  
+  const translations = {
+    en: {
+      title: 'Add Product',
+      productName: 'Product Name',
+      category: 'Category',
+      selectCategory: 'Select category',
+      price: 'Product Price ($)',
+      originalPrice: 'Original Price (Optional)',
+      pricePlaceholder: 'Price before discount',
+      priceNote: 'Enter original price to show discount',
+      stock: 'Stock',
+      minOrder: 'Minimum Order',
+      description: 'Product Description',
+      descPlaceholder: 'Complete description about product, features and benefits',
+      specifications: 'Specifications (Optional)',
+      specsPlaceholder: 'Example: Color: White, Size: Large, Material: Cotton',
+      specsNote: 'Write each specification on a new line',
+      productImages: 'Product Images',
+      uploadImages: 'Click to upload images or drag files',
+      imagesNote: 'Maximum 5 images, each max 2MB',
+      publish: 'Publish Product',
+      draft: 'Save as Draft',
+      cancel: 'Cancel',
+      saving: 'Saving...',
+      note: 'Note: After connecting to Supabase, your products will be immediately displayed on the site',
+    },
+    zh: {
+      title: '添加产品',
+      productName: '产品名称',
+      category: '类别',
+      selectCategory: '选择类别',
+      price: '产品价格 ($)',
+      originalPrice: '原价（可选）',
+      pricePlaceholder: '折扣前价格',
+      priceNote: '输入原价以显示折扣',
+      stock: '库存',
+      minOrder: '最低订单',
+      description: '产品描述',
+      descPlaceholder: '产品的完整描述、功能和优势',
+      specifications: '规格（可选）',
+      specsPlaceholder: '例如：颜色：白色，尺寸：大号，材质：棉',
+      specsNote: '每行写一个规格',
+      productImages: '产品图片',
+      uploadImages: '点击上传图片或拖动文件',
+      imagesNote: '最多5张图片，每张最大2MB',
+      publish: '发布产品',
+      draft: '保存为草稿',
+      cancel: '取消',
+      saving: '保存中...',
+      note: '注意：连接Supabase后，您的产品将立即在网站上显示',
+    },
+    fa: {
+      title: 'افزودن محصول',
+      productName: 'نام محصول',
+      category: 'دسته‌بندی',
+      selectCategory: 'انتخاب کنید',
+      price: 'قیمت محصول (تومان)',
+      originalPrice: 'قیمت اصلی (اختیاری)',
+      pricePlaceholder: 'قیمت قبل از تخفیف',
+      priceNote: 'برای نمایش تخفیف، قیمت اصلی را وارد کنید',
+      stock: 'موجودی',
+      minOrder: 'حداقل سفارش',
+      description: 'توضیحات محصول',
+      descPlaceholder: 'توضیحات کامل درباره محصول، ویژگی‌ها و مزایا',
+      specifications: 'مشخصات فنی (اختیاری)',
+      specsPlaceholder: 'مثال: رنگ: سفید، سایز: Large، جنس: پنبه',
+      specsNote: 'هر مشخصه را در یک خط جدید بنویسید',
+      productImages: 'تصاویر محصول',
+      uploadImages: 'برای آپلود تصاویر کلیک کنید یا فایل را بکشید',
+      imagesNote: 'حداکثر 5 تصویر، هر کدام حداکثر 2MB',
+      publish: 'انتشار محصول',
+      draft: 'ذخیره پیش‌نویس',
+      cancel: 'انصراف',
+      saving: 'در حال ذخیره...',
+      note: 'نکته: پس از اتصال به Supabase، محصولات شما بلافاصله در سایت نمایش داده می‌شوند',
+    }
+  }
+
+  const txt = translations[language] || translations.fa
+  const textDir = isInternational ? 'ltr' : 'rtl'
+  const textAlign = isInternational ? 'text-left' : 'text-right'
+  const basePath = isInternational ? '/vendor/international' : '/vendor'
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -26,7 +118,6 @@ export default function AddProductPage() {
 
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files)
-    // Mock image preview - real upload will be to Supabase
     const newImages = files.map(file => ({
       id: Math.random(),
       name: file.name,
@@ -34,6 +125,7 @@ export default function AddProductPage() {
       file: file
     }))
     setImages(prev => [...prev, ...newImages].slice(0, 5))
+    setImageFiles(prev => [...prev, ...files].slice(0, 5))
   }
 
   const removeImage = (imageId) => {
@@ -45,31 +137,54 @@ export default function AddProductPage() {
     setLoading(true)
 
     try {
-      // TODO: Upload to Supabase when connected
-      console.log('Product Data:', formData)
-      console.log('Images:', images)
+      // Upload images first
+      const uploadedImageUrls = []
+      for (const file of imageFiles) {
+        const result = await uploadImage(file, 'products')
+        if (result.success) {
+          uploadedImageUrls.push(result.url)
+        }
+      }
 
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      // Create product with uploaded image URLs
+      const productData = {
+        name: formData.name,
+        description: formData.description,
+        category: formData.category,
+        price: parseFloat(formData.price),
+        originalPrice: formData.originalPrice ? parseFloat(formData.originalPrice) : null,
+        stock: parseInt(formData.stock),
+        minOrder: parseInt(formData.minOrder) || 1,
+        specifications: formData.specifications,
+        images: uploadedImageUrls,
+        status: 'published',
+      }
 
-      alert('محصول با موفقیت اضافه شد!')
-      navigate('/vendor/products')
+      const result = await createProduct(productData, language)
+
+      if (result.success) {
+        alert(language === 'fa' ? 'محصول با موفقیت اضافه شد!' : 'Product added successfully!')
+        navigate(`${basePath}/products`)
+      } else {
+        alert(language === 'fa' ? 'خطا در افزودن محصول' : 'Error adding product')
+      }
     } catch (error) {
-      alert('خطا در افزودن محصول')
+      console.error('Submit error:', error)
+      alert(language === 'fa' ? 'خطا در افزودن محصول' : 'Error adding product')
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div className="space-y-6">
-      <div className="card p-6">
-        <h1 className="text-2xl font-bold mb-6">{t('vendor.addProduct')}</h1>
+    <div className="space-y-6" dir={textDir}>
+      <div className={`card p-6 ${textAlign}`}>
+        <h1 className="text-2xl font-bold mb-6">{txt.title}</h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="input-group md:col-span-2">
-              <label className="input-label">{t('vendor.productName')}</label>
+              <label className={`input-label ${textAlign}`}>{txt.productName}</label>
               <input
                 type="text"
                 value={formData.name}
