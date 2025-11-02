@@ -642,11 +642,11 @@ export default function StoreSettingsPage() {
                   required
                 >
                   <option value="">{txt.selectType}</option>
-                  <option value="manufacturer">{language === 'fa' ? 'تولیدکننده / کارخانه' : 'Manufacturer / Factory'}</option>
-                  <option value="wholesaler">{language === 'fa' ? 'عمده‌فروش' : 'Wholesaler'}</option>
-                  <option value="retailer">{language === 'fa' ? 'خرده‌فروش' : 'Retailer'}</option>
-                  <option value="distributor">{language === 'fa' ? 'توزیع‌کننده' : 'Distributor'}</option>
-                  <option value="importer">{language === 'fa' ? 'واردکننده' : 'Importer'}</option>
+                  <option value="manufacturer">{dashboardLanguage === 'fa' ? 'تولیدکننده / کارخانه' : 'Manufacturer / Factory'}</option>
+                  <option value="wholesaler">{dashboardLanguage === 'fa' ? 'عمده‌فروش' : 'Wholesaler'}</option>
+                  <option value="retailer">{dashboardLanguage === 'fa' ? 'خرده‌فروش' : 'Retailer'}</option>
+                  <option value="distributor">{dashboardLanguage === 'fa' ? 'توزیع‌کننده' : 'Distributor'}</option>
+                  <option value="importer">{dashboardLanguage === 'fa' ? 'واردکننده' : 'Importer'}</option>
                 </select>
               </div>
 
@@ -671,11 +671,11 @@ export default function StoreSettingsPage() {
                   className={textAlign}
                 >
                   <option value="">{txt.selectEmployees}</option>
-                  <option value="1-10">{language === 'fa' ? '۱-۱۰ نفر' : '1-10'}</option>
-                  <option value="11-50">{language === 'fa' ? '۱۱-۵۰ نفر' : '11-50'}</option>
-                  <option value="51-200">{language === 'fa' ? '۵۱-۲۰۰ نفر' : '51-200'}</option>
-                  <option value="201-500">{language === 'fa' ? '۲۰۱-۵۰۰ نفر' : '201-500'}</option>
-                  <option value="500+">{language === 'fa' ? 'بیش از ۵۰۰ نفر' : '500+'}</option>
+                  <option value="1-10">{dashboardLanguage === 'fa' ? '۱-۱۰ نفر' : '1-10'}</option>
+                  <option value="11-50">{dashboardLanguage === 'fa' ? '۱۱-۵۰ نفر' : '11-50'}</option>
+                  <option value="51-200">{dashboardLanguage === 'fa' ? '۵۱-۲۰۰ نفر' : '51-200'}</option>
+                  <option value="201-500">{dashboardLanguage === 'fa' ? '۲۰۱-۵۰۰ نفر' : '201-500'}</option>
+                  <option value="500+">{dashboardLanguage === 'fa' ? 'بیش از ۵۰۰ نفر' : '500+'}</option>
                 </select>
               </div>
             </div>
@@ -697,7 +697,7 @@ export default function StoreSettingsPage() {
                   className={textAlign}
                 />
                 <span className={`text-xs text-gray-500 ${textAlign}`}>
-                  {storeData.metaDescription.length}/160 {language === 'fa' ? 'کاراکتر' : 'characters'}
+                  {storeData.metaDescription.length}/160 {dashboardLanguage === 'fa' ? 'کاراکتر' : 'characters'}
                 </span>
               </div>
 
@@ -757,7 +757,7 @@ export default function StoreSettingsPage() {
 
           {/* Help Text */}
           <div className={`p-4 bg-blue-50 rounded-lg text-sm text-blue-700 ${textAlign}`}>
-            💡 <strong>{language === 'fa' ? 'نکته:' : 'Note:'}</strong> {txt.helpNote}
+            💡 <strong>{dashboardLanguage === 'fa' ? 'نکته:' : 'Note:'}</strong> {txt.helpNote}
           </div>
         </form>
       </div>
