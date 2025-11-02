@@ -35,6 +35,7 @@ import VendorDashboard from './pages/vendor/VendorDashboard'
 import VendorProductsPage from './pages/vendor/VendorProductsPage'
 import VendorOrdersPage from './pages/vendor/VendorOrdersPage'
 import AddProductPage from './pages/vendor/AddProductPage'
+import StoreSettingsPage from './pages/vendor/StoreSettingsPage'
 
 // Other Pages
 import AboutPage from './pages/AboutPage'
@@ -108,6 +109,7 @@ function App() {
         <Route path="products" element={<VendorProductsPage />} />
         <Route path="products/new" element={<AddProductPage />} />
         <Route path="orders" element={<VendorOrdersPage />} />
+        <Route path="store-page" element={<StoreSettingsPage />} />
       </Route>
 
       {/* 404 */}

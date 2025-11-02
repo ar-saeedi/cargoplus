@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
-import { Package, ShoppingCart, DollarSign, TrendingUp } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { Package, ShoppingCart, DollarSign, TrendingUp, Store, Eye } from 'lucide-react'
 
 export default function VendorDashboard() {
   const { t } = useTranslation()
@@ -35,6 +36,34 @@ export default function VendorDashboard() {
             </div>
           )
         })}
+      </div>
+
+      {/* Store Page Quick Access */}
+      <div className="card p-6 bg-gradient-to-br from-primary-50 to-orange-50 border-2 border-primary-200">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="text-lg font-bold text-gray-900 mb-2 flex items-center gap-2">
+              <Store size={24} className="text-primary-600" />
+              صفحه اختصاصی فروشگاه شما
+            </h3>
+            <p className="text-gray-700 mb-4">
+              یک صفحه حرفه‌ای برای فروشگاه خود بسازید و اعتماد مشتریان را جلب کنید
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link to="/vendor/store-page" className="btn btn-primary">
+                <Store size={18} />
+                تنظیمات صفحه فروشگاه
+              </Link>
+              <Link to="/store/preview" target="_blank" className="btn btn-outline">
+                <Eye size={18} />
+                مشاهده صفحه عمومی
+              </Link>
+            </div>
+          </div>
+          <div className="hidden lg:block text-6xl">
+            🏪
+          </div>
+        </div>
       </div>
 
       <div className="card p-6">

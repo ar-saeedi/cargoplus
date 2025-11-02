@@ -6,7 +6,8 @@ import {
   ShoppingCart,
   BarChart3,
   Settings,
-  Users
+  Users,
+  Store
 } from 'lucide-react'
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
@@ -19,6 +20,7 @@ export default function VendorLayout() {
     { path: '/vendor', label: t('vendor.dashboard'), icon: LayoutDashboard },
     { path: '/vendor/products', label: t('vendor.products'), icon: Package },
     { path: '/vendor/orders', label: t('vendor.orders'), icon: ShoppingCart },
+    { path: '/vendor/store-page', label: 'صفحه فروشگاه', icon: Store },
     { path: '/vendor/sales', label: t('vendor.sales'), icon: BarChart3 },
     { path: '/vendor/customers', label: t('vendor.customers'), icon: Users },
     { path: '/vendor/settings', label: t('vendor.storeSettings'), icon: Settings },
