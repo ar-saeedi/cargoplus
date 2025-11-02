@@ -350,7 +350,7 @@ export default function StoreSettingsPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Logo Upload */}
               <div>
-                <label className="input-label">لوگوی فروشگاه</label>
+                <label className={`input-label ${textAlign}`}>{txt.storeLogo}</label>
                 <div className="space-y-3">
                   {logoPreview ? (
                     <div className="relative w-32 h-32 group">
@@ -370,7 +370,7 @@ export default function StoreSettingsPage() {
                   ) : (
                     <label className="w-32 h-32 border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-primary-600 transition-colors">
                       <Upload size={32} className="text-gray-400 mb-2" />
-                      <span className="text-xs text-gray-500">آپلود لوگو</span>
+                      <span className="text-xs text-gray-500">{txt.uploadLogo}</span>
                       <input
                         type="file"
                         accept="image/*"
@@ -379,13 +379,13 @@ export default function StoreSettingsPage() {
                       />
                     </label>
                   )}
-                  <p className="text-xs text-gray-500">توصیه می‌شود: 400x400 پیکسل</p>
+                  <p className={`text-xs text-gray-500 ${textAlign}`}>{txt.logoSize}</p>
                 </div>
               </div>
 
               {/* Cover Image Upload */}
               <div>
-                <label className="input-label">تصویر کاور فروشگاه</label>
+                <label className={`input-label ${textAlign}`}>{txt.coverImage}</label>
                 <div className="space-y-3">
                   {coverPreview ? (
                     <div className="relative w-full h-32 group">
@@ -405,7 +405,7 @@ export default function StoreSettingsPage() {
                   ) : (
                     <label className="w-full h-32 border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-primary-600 transition-colors">
                       <Upload size={32} className="text-gray-400 mb-2" />
-                      <span className="text-xs text-gray-500">آپلود تصویر کاور</span>
+                      <span className="text-xs text-gray-500">{txt.uploadCover}</span>
                       <input
                         type="file"
                         accept="image/*"
@@ -414,7 +414,7 @@ export default function StoreSettingsPage() {
                       />
                     </label>
                   )}
-                  <p className="text-xs text-gray-500">توصیه می‌شود: 1200x400 پیکسل</p>
+                  <p className={`text-xs text-gray-500 ${textAlign}`}>{txt.coverSize}</p>
                 </div>
               </div>
             </div>
@@ -422,10 +422,10 @@ export default function StoreSettingsPage() {
 
           {/* Basic Information */}
           <div className="pb-6 border-b">
-            <h3 className="text-lg font-bold mb-4">اطلاعات پایه</h3>
+            <h3 className={`text-lg font-bold mb-4 ${textAlign}`}>{txt.basicInfo}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="input-group">
-                <label className="input-label">نام رسمی شرکت</label>
+                <label className={`input-label ${textAlign}`}>{txt.companyName}</label>
                 <input
                   type="text"
                   name="companyName"
@@ -437,36 +437,39 @@ export default function StoreSettingsPage() {
               </div>
 
               <div className="input-group">
-                <label className="input-label">نام نمایشی (اختیاری)</label>
+                <label className={`input-label ${textAlign}`}>{txt.displayName}</label>
                 <input
                   type="text"
                   name="displayName"
                   value={storeData.displayName}
                   onChange={handleChange}
-                  placeholder="فروشگاه آنلاین مثال"
+                  placeholder={txt.displayPlaceholder}
+                  className={textAlign}
                 />
-                <span className="text-xs text-gray-500">نام کوتاه‌تر برای نمایش</span>
+                <span className={`text-xs text-gray-500 ${textAlign}`}>{txt.displayPlaceholder}</span>
               </div>
 
               <div className="input-group md:col-span-2">
-                <label className="input-label">شعار فروشگاه</label>
+                <label className={`input-label ${textAlign}`}>{txt.slogan}</label>
                 <input
                   type="text"
                   name="slogan"
                   value={storeData.slogan}
                   onChange={handleChange}
-                  placeholder="بهترین کیفیت، بهترین قیمت"
+                  placeholder={txt.sloganPlaceholder}
+                  className={textAlign}
                 />
               </div>
 
               <div className="input-group md:col-span-2">
-                <label className="input-label">درباره فروشگاه</label>
+                <label className={`input-label ${textAlign}`}>{txt.aboutStore}</label>
                 <textarea
                   name="description"
                   value={storeData.description}
                   onChange={handleChange}
                   rows="4"
-                  placeholder="توضیحات کامل درباره شرکت، تاریخچه، محصولات و خدمات..."
+                  placeholder={txt.aboutPlaceholder}
+                  className={textAlign}
                   required
                 />
               </div>
@@ -475,78 +478,84 @@ export default function StoreSettingsPage() {
 
           {/* Contact Information */}
           <div className="pb-6 border-b">
-            <h3 className="text-lg font-bold mb-4">اطلاعات تماس</h3>
+            <h3 className={`text-lg font-bold mb-4 ${textAlign}`}>{txt.contactInfo}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="input-group">
-                <label className="input-label">ایمیل</label>
+                <label className={`input-label ${textAlign}`}>{txt.email}</label>
                 <input
                   type="email"
                   name="email"
                   value={storeData.email}
                   onChange={handleChange}
                   placeholder="info@company.com"
+                  className={textAlign}
                   dir="ltr"
                   required
                 />
               </div>
 
               <div className="input-group">
-                <label className="input-label">تلفن</label>
+                <label className={`input-label ${textAlign}`}>{txt.phone}</label>
                 <input
                   type="tel"
                   name="phone"
                   value={storeData.phone}
                   onChange={handleChange}
                   placeholder="021-12345678"
+                  className={textAlign}
                   dir="ltr"
                   required
                 />
               </div>
 
               <div className="input-group">
-                <label className="input-label">واتساپ (اختیاری)</label>
+                <label className={`input-label ${textAlign}`}>{txt.whatsapp}</label>
                 <input
                   type="tel"
                   name="whatsapp"
                   value={storeData.whatsapp}
                   onChange={handleChange}
                   placeholder="+98 912 345 6789"
+                  className={textAlign}
                   dir="ltr"
                 />
               </div>
 
               <div className="input-group">
-                <label className="input-label">تلگرام (اختیاری)</label>
+                <label className={`input-label ${textAlign}`}>{txt.telegram}</label>
                 <input
                   type="text"
                   name="telegram"
                   value={storeData.telegram}
                   onChange={handleChange}
                   placeholder="@username"
+                  className={textAlign}
                   dir="ltr"
                 />
               </div>
 
               <div className="input-group">
-                <label className="input-label">وب‌سایت (اختیاری)</label>
+                <label className={`input-label ${textAlign}`}>{txt.website}</label>
                 <input
                   type="url"
                   name="website"
                   value={storeData.website}
                   onChange={handleChange}
                   placeholder="https://company.com"
+                  className={textAlign}
                   dir="ltr"
                 />
               </div>
 
               <div className="input-group">
-                <label className="input-label">اینستاگرام (اختیاری)</label>
+                <label className={`input-label ${textAlign}`}>{txt.instagram}</label>
                 <input
                   type="text"
                   name="instagram"
                   value={storeData.instagram}
                   onChange={handleChange}
                   placeholder="@company_official"
+                  className={textAlign}
                   dir="ltr"
                 />
               </div>
@@ -555,51 +564,55 @@ export default function StoreSettingsPage() {
 
           {/* Location */}
           <div className="pb-6 border-b">
-            <h3 className="text-lg font-bold mb-4">آدرس و موقعیت</h3>
+            <h3 className={`text-lg font-bold mb-4 ${textAlign}`}>{txt.locationAddress}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="input-group">
-                <label className="input-label">کشور</label>
+                <label className={`input-label ${textAlign}`}>{txt.country}</label>
                 <input
                   type="text"
                   name="country"
                   value={storeData.country}
                   onChange={handleChange}
-                  placeholder="ایران"
+                  placeholder="Iran / China / USA"
+                  className={textAlign}
                 />
               </div>
 
               <div className="input-group">
-                <label className="input-label">شهر</label>
+                <label className={`input-label ${textAlign}`}>{txt.city}</label>
                 <input
                   type="text"
                   name="city"
                   value={storeData.city}
                   onChange={handleChange}
-                  placeholder="تهران"
+                  placeholder="Tehran / Shanghai / New York"
+                  className={textAlign}
                   required
                 />
               </div>
 
               <div className="input-group md:col-span-2">
-                <label className="input-label">آدرس کامل</label>
+                <label className={`input-label ${textAlign}`}>{txt.fullAddress}</label>
                 <input
                   type="text"
                   name="address"
                   value={storeData.address}
                   onChange={handleChange}
-                  placeholder="خیابان ولیعصر، پلاک ۱۲۳"
+                  placeholder="Street, Building, Floor"
+                  className={textAlign}
                   required
                 />
               </div>
 
               <div className="input-group">
-                <label className="input-label">کد پستی</label>
+                <label className={`input-label ${textAlign}`}>{txt.postalCode}</label>
                 <input
                   type="text"
                   name="postalCode"
                   value={storeData.postalCode}
                   onChange={handleChange}
                   placeholder="1234567890"
+                  className={textAlign}
                   dir="ltr"
                 />
               </div>
@@ -608,49 +621,52 @@ export default function StoreSettingsPage() {
 
           {/* Business Details */}
           <div className="pb-6 border-b">
-            <h3 className="text-lg font-bold mb-4">جزئیات کسب‌وکار</h3>
+            <h3 className={`text-lg font-bold mb-4 ${textAlign}`}>{txt.businessDetails}</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="input-group">
-                <label className="input-label">نوع کسب‌وکار</label>
+                <label className={`input-label ${textAlign}`}>{txt.businessType}</label>
                 <select
                   name="businessType"
                   value={storeData.businessType}
                   onChange={handleChange}
+                  className={textAlign}
                   required
                 >
-                  <option value="">انتخاب کنید</option>
-                  <option value="manufacturer">تولیدکننده / کارخانه</option>
-                  <option value="wholesaler">عمده‌فروش</option>
-                  <option value="retailer">خرده‌فروش</option>
-                  <option value="distributor">توزیع‌کننده</option>
-                  <option value="importer">واردکننده</option>
+                  <option value="">{txt.selectType}</option>
+                  <option value="manufacturer">{language === 'fa' ? 'تولیدکننده / کارخانه' : 'Manufacturer / Factory'}</option>
+                  <option value="wholesaler">{language === 'fa' ? 'عمده‌فروش' : 'Wholesaler'}</option>
+                  <option value="retailer">{language === 'fa' ? 'خرده‌فروش' : 'Retailer'}</option>
+                  <option value="distributor">{language === 'fa' ? 'توزیع‌کننده' : 'Distributor'}</option>
+                  <option value="importer">{language === 'fa' ? 'واردکننده' : 'Importer'}</option>
                 </select>
               </div>
 
               <div className="input-group">
-                <label className="input-label">سال تأسیس</label>
+                <label className={`input-label ${textAlign}`}>{txt.yearEstablished}</label>
                 <input
                   type="text"
                   name="yearEstablished"
                   value={storeData.yearEstablished}
                   onChange={handleChange}
-                  placeholder="1400"
+                  placeholder="2020"
+                  className={textAlign}
                 />
               </div>
 
               <div className="input-group">
-                <label className="input-label">تعداد کارکنان</label>
+                <label className={`input-label ${textAlign}`}>{txt.employees}</label>
                 <select
                   name="numberOfEmployees"
                   value={storeData.numberOfEmployees}
                   onChange={handleChange}
+                  className={textAlign}
                 >
-                  <option value="">انتخاب کنید</option>
-                  <option value="1-10">۱-۱۰ نفر</option>
-                  <option value="11-50">۱۱-۵۰ نفر</option>
-                  <option value="51-200">۵۱-۲۰۰ نفر</option>
-                  <option value="201-500">۲۰۱-۵۰۰ نفر</option>
-                  <option value="500+">بیش از ۵۰۰ نفر</option>
+                  <option value="">{txt.selectEmployees}</option>
+                  <option value="1-10">{language === 'fa' ? '۱-۱۰ نفر' : '1-10'}</option>
+                  <option value="11-50">{language === 'fa' ? '۱۱-۵۰ نفر' : '11-50'}</option>
+                  <option value="51-200">{language === 'fa' ? '۵۱-۲۰۰ نفر' : '51-200'}</option>
+                  <option value="201-500">{language === 'fa' ? '۲۰۱-۵۰۰ نفر' : '201-500'}</option>
+                  <option value="500+">{language === 'fa' ? 'بیش از ۵۰۰ نفر' : '500+'}</option>
                 </select>
               </div>
             </div>
@@ -658,33 +674,35 @@ export default function StoreSettingsPage() {
 
           {/* SEO Settings */}
           <div className="pb-6 border-b">
-            <h3 className="text-lg font-bold mb-4">بهینه‌سازی موتور جستجو (SEO)</h3>
+            <h3 className={`text-lg font-bold mb-4 ${textAlign}`}>{txt.seoSettings}</h3>
             <div className="space-y-4">
               <div className="input-group">
-                <label className="input-label">توضیحات متا</label>
+                <label className={`input-label ${textAlign}`}>{txt.metaDescription}</label>
                 <textarea
                   name="metaDescription"
                   value={storeData.metaDescription}
                   onChange={handleChange}
                   rows="2"
                   maxLength="160"
-                  placeholder="توضیح کوتاهی درباره فروشگاه برای نتایج جستجو (حداکثر ۱۶۰ کاراکتر)"
+                  placeholder={txt.metaPlaceholder}
+                  className={textAlign}
                 />
-                <span className="text-xs text-gray-500">
-                  {storeData.metaDescription.length}/160 کاراکتر
+                <span className={`text-xs text-gray-500 ${textAlign}`}>
+                  {storeData.metaDescription.length}/160 {language === 'fa' ? 'کاراکتر' : 'characters'}
                 </span>
               </div>
 
               <div className="input-group">
-                <label className="input-label">کلمات کلیدی</label>
+                <label className={`input-label ${textAlign}`}>{txt.keywords}</label>
                 <input
                   type="text"
                   name="keywords"
                   value={storeData.keywords}
                   onChange={handleChange}
-                  placeholder="پوشاک، عمده‌فروشی، تهران"
+                  placeholder={txt.keywordsPlaceholder}
+                  className={textAlign}
                 />
-                <span className="text-xs text-gray-500">با کاما جدا کنید</span>
+                <span className={`text-xs text-gray-500 ${textAlign}`}>{txt.keywordsSeparate}</span>
               </div>
             </div>
           </div>
@@ -697,7 +715,7 @@ export default function StoreSettingsPage() {
               className="btn btn-primary flex items-center gap-2"
             >
               <Save size={20} />
-              {saving ? 'در حال ذخیره...' : 'ذخیره تنظیمات'}
+              {saving ? txt.saving : txt.saveSettings}
             </button>
             <button
               type="button"
@@ -705,7 +723,7 @@ export default function StoreSettingsPage() {
               className="btn btn-outline flex items-center gap-2"
             >
               <Eye size={20} />
-              پیش‌نمایش
+              {txt.preview}
             </button>
           </div>
 
@@ -729,8 +747,8 @@ export default function StoreSettingsPage() {
           )}
 
           {/* Help Text */}
-          <div className="p-4 bg-blue-50 rounded-lg text-sm text-blue-700">
-            💡 <strong>نکته:</strong> با تکمیل این اطلاعات، صفحه اختصاصی فروشگاه شما حرفه‌ای‌تر به نظر می‌رسد و اعتماد مشتریان افزایش می‌یابد.
+          <div className={`p-4 bg-blue-50 rounded-lg text-sm text-blue-700 ${textAlign}`}>
+            💡 <strong>{language === 'fa' ? 'نکته:' : 'Note:'}</strong> {txt.helpNote}
           </div>
         </form>
       </div>
