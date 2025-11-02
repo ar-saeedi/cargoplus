@@ -110,9 +110,9 @@ export default function VendorStorePage() {
   }
 
   const tabs = [
-    { key: 'products', label: 'محصولات', count: productsCount },
+    { key: 'products', label: 'محصولات', count: products?.length || 0 },
     { key: 'about', label: 'درباره فروشگاه' },
-    { key: 'reviews', label: 'نظرات', count: vendor.reviewsCount },
+    { key: 'reviews', label: 'نظرات', count: vendor?.reviewsCount || 0 },
   ]
 
   return (
