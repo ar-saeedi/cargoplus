@@ -9,6 +9,7 @@ import { BuyerRoute, VendorRoute } from './components/ProtectedRoute'
 import MainLayout from './layouts/MainLayout'
 import DashboardLayout from './layouts/DashboardLayout'
 import VendorLayout from './layouts/VendorLayout'
+import VendorInternationalLayout from './layouts/VendorInternationalLayout'
 
 // Pages
 import HomePage from './pages/HomePage'
@@ -106,8 +107,17 @@ function App() {
         <Route path="addresses" element={<AddressesPage />} />
       </Route>
 
-      {/* Vendor Dashboard Routes - Protected for Vendors Only */}
+      {/* Persian Vendor Dashboard Routes */}
       <Route path="/vendor" element={<VendorRoute><VendorLayout /></VendorRoute>}>
+        <Route index element={<VendorDashboard />} />
+        <Route path="products" element={<VendorProductsPage />} />
+        <Route path="products/new" element={<AddProductPage />} />
+        <Route path="orders" element={<VendorOrdersPage />} />
+        <Route path="store-page" element={<StoreSettingsPage />} />
+      </Route>
+
+      {/* International Vendor Dashboard Routes - LTR with Language Dropdown */}
+      <Route path="/vendor/international" element={<VendorRoute><VendorInternationalLayout /></VendorRoute>}>
         <Route index element={<VendorDashboard />} />
         <Route path="products" element={<VendorProductsPage />} />
         <Route path="products/new" element={<AddProductPage />} />

@@ -366,7 +366,8 @@ export default function RegisterVendorInternationalSinglePage() {
         setErrors({ general: errorMsg })
       } else {
         console.log('Registration successful:', data)
-        navigate('/auth/verify-email')
+        // Pass language to verification page
+        navigate(`/auth/verify-email?lang=${selectedLanguage}`)
       }
     } catch (err) {
       console.error('Registration exception:', err)

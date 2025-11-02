@@ -55,12 +55,20 @@ export default function LoginPage() {
         // Login successful
         console.log('Login successful:', data)
         
-        // Redirect based on user type
+        // Redirect based on user type and if international
         const userType = data?.user?.user_metadata?.user_type || 'buyer'
-        console.log('User type:', userType)
+        const isInternational = data?.user?.user_metadata?.is_international
+        const language = data?.user?.user_metadata?.language
+        
+        console.log('User type:', userType, 'International:', isInternational, 'Language:', language)
         
         if (userType === 'vendor') {
-          navigate('/vendor')
+          // International vendors go to international dashboard
+          if (isInternational || language !== 'fa') {
+            navigate('/vendor/international')
+          } else {
+            navigate('/vendor')
+          }
         } else {
           navigate('/dashboard')
         }
