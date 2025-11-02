@@ -1,14 +1,61 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Store, Upload, X, Save, Eye } from 'lucide-react'
+import { Store, Upload, X, Save, Eye, Globe } from 'lucide-react'
+import { useAuthStore } from '../../store/authStore'
+import { saveVendorProfile, getVendorProfile, uploadImage } from '../../services/vendorService'
 
 export default function StoreSettingsPage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const { user } = useAuthStore()
   const [loading, setLoading] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const [logoFile, setLogoFile] = useState(null)
+  const [coverFile, setCoverFile] = useState(null)
   const [logoPreview, setLogoPreview] = useState(null)
   const [coverPreview, setCoverPreview] = useState(null)
+  const [vendorLanguage, setVendorLanguage] = useState('fa')
+  
+  // Load existing vendor data
+  useEffect(() => {
+    const loadVendorData = async () => {
+      setLoading(true)
+      const result = await getVendorProfile(user?.id)
+      if (result.success && result.data) {
+        const vendor = result.data
+        setVendorLanguage(vendor.language || 'fa')
+        setStoreData({
+          companyName: vendor.company_name || '',
+          displayName: vendor.display_name || '',
+          description: vendor.description_original || vendor.description || '',
+          slogan: vendor.slogan || '',
+          email: vendor.email || user?.email || '',
+          phone: vendor.phone || '',
+          whatsapp: vendor.whatsapp || '',
+          telegram: vendor.telegram || '',
+          website: vendor.website || '',
+          instagram: vendor.instagram || '',
+          country: vendor.country || '',
+          city: vendor.city || '',
+          address: vendor.address || '',
+          postalCode: vendor.postal_code || '',
+          businessType: vendor.business_type || '',
+          yearEstablished: vendor.year_established || '',
+          numberOfEmployees: vendor.number_of_employees || '',
+          metaDescription: '',
+          keywords: '',
+        })
+        setLogoPreview(vendor.logo_url)
+        setCoverPreview(vendor.cover_image_url)
+      }
+      setLoading(false)
+    }
+    
+    if (user) {
+      loadVendorData()
+    }
+  }, [user])
   
   const [storeData, setStoreData] = useState({
     companyName: 'شرکت تست',
@@ -43,40 +90,82 @@ export default function StoreSettingsPage() {
   const handleLogoUpload = (e) => {
     const file = e.target.files[0]
     if (file) {
+      setLogoFile(file)
       setLogoPreview(URL.createObjectURL(file))
-      // TODO: Upload to Supabase storage when save
     }
   }
 
   const handleCoverUpload = (e) => {
     const file = e.target.files[0]
     if (file) {
+      setCoverFile(file)
       setCoverPreview(URL.createObjectURL(file))
-      // TODO: Upload to Supabase storage when save
     }
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setLoading(true)
+    setSaving(true)
 
     try {
-      // TODO: Save to Supabase vendors table
-      console.log('Store Data:', storeData)
-      
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      alert('تنظیمات فروشگاه با موفقیت ذخیره شد!')
+      let logoUrl = logoPreview
+      let coverUrl = coverPreview
+
+      // Upload logo if new file selected
+      if (logoFile) {
+        const result = await uploadImage(logoFile, 'vendors/logos')
+        if (result.success) {
+          logoUrl = result.url
+        }
+      }
+
+      // Upload cover if new file selected
+      if (coverFile) {
+        const result = await uploadImage(coverFile, 'vendors/covers')
+        if (result.success) {
+          coverUrl = result.url
+        }
+      }
+
+      // Save vendor profile with auto-translation
+      const result = await saveVendorProfile({
+        ...storeData,
+        logoUrl,
+        coverUrl,
+      }, vendorLanguage)
+
+      if (result.success) {
+        alert('تنظیمات فروشگاه با موفقیت ذخیره شد!\n\nمحتوای شما به طور خودکار به فارسی ترجمه شد و برای خریداران ایرانی نمایش داده می‌شود.')
+      } else {
+        alert('خطا در ذخیره: ' + result.error)
+      }
     } catch (error) {
+      console.error('Save error:', error)
       alert('خطا در ذخیره تنظیمات')
     } finally {
-      setLoading(false)
+      setSaving(false)
     }
   }
 
-  const handlePreviewStore = () => {
-    // Open store preview in new tab
-    window.open('/store/preview', '_blank')
+  const handlePreviewStore = async () => {
+    // Get vendor ID first
+    const result = await getVendorProfile(user?.id)
+    if (result.success && result.data) {
+      window.open(`/store/${result.data.id}`, '_blank')
+    } else {
+      alert('لطفا ابتدا تنظیمات را ذخیره کنید')
+    }
+  }
+  
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-primary-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p>در حال بارگذاری...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -451,11 +540,11 @@ export default function StoreSettingsPage() {
           <div className="flex gap-3">
             <button
               type="submit"
-              disabled={loading}
+              disabled={saving}
               className="btn btn-primary flex items-center gap-2"
             >
               <Save size={20} />
-              {loading ? 'در حال ذخیره...' : 'ذخیره تنظیمات'}
+              {saving ? 'در حال ذخیره...' : 'ذخیره تنظیمات'}
             </button>
             <button
               type="button"
@@ -466,6 +555,25 @@ export default function StoreSettingsPage() {
               پیش‌نمایش
             </button>
           </div>
+
+          {/* Translation Info */}
+          {vendorLanguage !== 'fa' && (
+            <div className="p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg text-sm border border-blue-200">
+              <div className="flex items-start gap-3">
+                <Globe size={24} className="text-blue-600 flex-shrink-0 mt-1" />
+                <div>
+                  <p className="font-bold text-blue-900 mb-2">🌍 Auto-Translation to Persian</p>
+                  <p className="text-blue-700 mb-2">
+                    You're writing in <strong>{vendorLanguage === 'en' ? 'English' : vendorLanguage === 'zh' ? 'Chinese' : 'your language'}</strong>.
+                  </p>
+                  <p className="text-blue-700">
+                    ✨ <strong>Don't worry!</strong> Your content will be automatically translated to Persian (Farsi) for Iranian buyers.
+                    Your original content is also saved and you can see it in your dashboard.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Help Text */}
           <div className="p-4 bg-blue-50 rounded-lg text-sm text-blue-700">

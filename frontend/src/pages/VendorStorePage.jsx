@@ -1,43 +1,112 @@
 import { useParams, Link } from 'react-router-dom'
-import { Star, MapPin, Phone, Mail, Store, Package, TrendingUp, Shield } from 'lucide-react'
-import { useState } from 'react'
+import { Star, MapPin, Phone, Mail, Store, Package, TrendingUp, Shield, Globe } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { getVendorById } from '../services/vendorService'
+import { supabase } from '../lib/supabase'
 
 export default function VendorStorePage() {
   const { vendorId } = useParams()
   const [activeTab, setActiveTab] = useState('products')
+  const [vendor, setVendor] = useState(null)
+  const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
 
-  // Mock vendor data - Will come from Supabase
-  const vendor = {
-    id: vendorId,
-    companyName: 'شرکت تجاری نمونه',
-    businessType: 'عمده‌فروش',
-    description: 'ما یک شرکت معتبر در زمینه توزیع و فروش محصولات متنوع هستیم با بیش از ۱۰ سال سابقه فعالیت در بازار.',
-    rating: 4.8,
-    reviewsCount: 234,
-    productsCount: 156,
-    city: 'تهران',
-    address: 'تهران، خیابان ولیعصر، پلاک ۱۲۳',
-    phone: '021-12345678',
-    email: 'info@company.com',
-    joinDate: '۱۴۰۱',
-    totalSales: 15420,
-    responseTime: '۲ ساعت',
-    logo: null,
-    coverImage: null,
+  useEffect(() => {
+    const loadVendorData = async () => {
+      setLoading(true)
+      
+      // Load vendor profile
+      const vendorResult = await getVendorById(vendorId)
+      if (vendorResult.success && vendorResult.data) {
+        const vendorData = vendorResult.data
+        
+        // Transform to display object - ALWAYS SHOW PERSIAN to buyers!
+        setVendor({
+          id: vendorData.id,
+          // Use Persian translations for buyers
+          companyName: vendorData.description_fa || vendorData.company_name,
+          displayName: vendorData.display_name_fa || vendorData.display_name || vendorData.company_name,
+          slogan: vendorData.slogan_fa || vendorData.slogan,
+          description: vendorData.description_fa || vendorData.description || 'بدون توضیحات',
+          businessType: vendorData.business_type,
+          rating: vendorData.rating || 0,
+          reviewsCount: vendorData.reviews_count || 0,
+          totalSales: vendorData.total_sales || 0,
+          city: vendorData.city,
+          country: vendorData.country,
+          address: vendorData.address,
+          phone: vendorData.phone,
+          email: vendorData.email,
+          whatsapp: vendorData.whatsapp,
+          telegram: vendorData.telegram,
+          website: vendorData.website,
+          instagram: vendorData.instagram,
+          isInternational: vendorData.is_international,
+          isVerified: vendorData.is_verified,
+          logo: vendorData.logo_url,
+          coverImage: vendorData.cover_image_url,
+          responseTime: vendorData.response_time || '۲۴ ساعت',
+          joinDate: new Date(vendorData.created_at).toLocaleDateString('fa-IR', { year: 'numeric' }),
+        })
+
+        // Load vendor's products
+        const { data: productsData } = await supabase
+          .from('products')
+          .select('*')
+          .eq('vendor_id', vendorId)
+          .eq('status', 'published')
+          .order('created_at', { ascending: false })
+          .limit(12)
+
+        if (productsData) {
+          setProducts(productsData.map(p => ({
+            id: p.id,
+            // Show Persian name to buyers
+            name: p.name_fa || p.name,
+            price: p.price,
+            originalPrice: p.original_price,
+            rating: p.rating || 4.5,
+            sales: p.sales_count || 0,
+            inStock: p.is_in_stock,
+            image: p.images?.[0] || null,
+          })))
+        }
+      }
+      
+      setLoading(false)
+    }
+
+    if (vendorId) {
+      loadVendorData()
+    }
+  }, [vendorId])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-primary-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">در حال بارگذاری فروشگاه...</p>
+        </div>
+      </div>
+    )
   }
 
-  // Mock products - Will come from Supabase
-  const products = Array(12).fill(null).map((_, i) => ({
-    id: i + 1,
-    name: `محصول ${i + 1} از ${vendor.companyName}`,
-    price: 125000 + (i * 10000),
-    rating: 4.5,
-    sales: 120 + (i * 10),
-    inStock: i % 4 !== 0,
-  }))
+  if (!vendor) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">فروشگاه یافت نشد</h2>
+          <Link to="/" className="text-primary-600 hover:underline">
+            بازگشت به صفحه اصلی
+          </Link>
+        </div>
+      </div>
+    )
+  }
 
   const tabs = [
-    { key: 'products', label: 'محصولات', count: vendor.productsCount },
+    { key: 'products', label: 'محصولات', count: productsCount },
     { key: 'about', label: 'درباره فروشگاه' },
     { key: 'reviews', label: 'نظرات', count: vendor.reviewsCount },
   ]
@@ -58,25 +127,58 @@ export default function VendorStorePage() {
       </div>
 
       <div className="container mx-auto px-4 py-6">
-        {/* Store Header */}
+          {/* Cover Image */}
+        {vendor.coverImage && (
+          <div className="h-64 bg-gray-200 rounded-2xl overflow-hidden mb-6">
+            <img 
+              src={vendor.coverImage} 
+              alt={vendor.companyName}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
+
+          {/* Store Header */}
         <div className="card p-6 mb-6">
           <div className="flex flex-col md:flex-row gap-6">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <div className="w-24 h-24 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center shadow-lg">
-                <Store className="text-white" size={48} />
-              </div>
+              {vendor.logo ? (
+                <img 
+                  src={vendor.logo} 
+                  alt={vendor.companyName}
+                  className="w-24 h-24 rounded-2xl object-cover border-2 border-gray-200 shadow-lg"
+                />
+              ) : (
+                <div className="w-24 h-24 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center shadow-lg">
+                  <Store className="text-white" size={48} />
+                </div>
+              )}
             </div>
 
             {/* Info */}
             <div className="flex-1">
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <h1 className="text-2xl font-bold text-gray-900 mb-2">{vendor.companyName}</h1>
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
+                  <h1 className="text-2xl font-bold text-gray-900 mb-1">
+                    {vendor.displayName || vendor.companyName}
+                  </h1>
+                  {vendor.slogan && (
+                    <p className="text-gray-600 text-sm mb-2 italic">{vendor.slogan}</p>
+                  )}
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-3 flex-wrap">
+                    {vendor.isInternational && (
+                      <>
+                        <div className="flex items-center gap-1 bg-blue-100 text-blue-700 px-2 py-1 rounded">
+                          <Globe size={14} />
+                          <span className="font-medium">فروشنده بین‌المللی</span>
+                        </div>
+                        <span>•</span>
+                      </>
+                    )}
                     <div className="flex items-center gap-1">
                       <Star size={16} className="fill-yellow-400 text-yellow-400" />
-                      <span className="font-medium">{vendor.rating}</span>
+                      <span className="font-medium">{vendor.rating.toFixed(1)}</span>
                       <span>({vendor.reviewsCount} نظر)</span>
                     </div>
                     <span>•</span>
