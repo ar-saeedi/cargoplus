@@ -58,7 +58,7 @@ export default function VendorProductsPage() {
 
   const products = Array(10).fill(null).map((_, i) => ({
     id: i + 1,
-    name: `محصول ${i + 1}`,
+    name: isInternational ? `Product ${i + 1}` : `محصول ${i + 1}`,
     price: 125000 + (i * 10000),
     stock: 50 + (i * 5),
     sales: 120 + (i * 10),

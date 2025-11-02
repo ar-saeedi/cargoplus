@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation, useOutletContext } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Store, Upload, X, Save, Eye, Globe } from 'lucide-react'
 import { useAuthStore } from '../../store/authStore'
@@ -9,6 +9,11 @@ export default function StoreSettingsPage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { user } = useAuthStore()
+  const location = useLocation()
+  const context = useOutletContext()
+  const isInternational = location.pathname.includes('/international')
+  const dashboardLanguage = context?.language || 'fa'
+  
   const [loading, setLoading] = useState(false)
   const [saving, setSaving] = useState(false)
   const [logoFile, setLogoFile] = useState(null)
@@ -16,6 +21,154 @@ export default function StoreSettingsPage() {
   const [logoPreview, setLogoPreview] = useState(null)
   const [coverPreview, setCoverPreview] = useState(null)
   const [vendorLanguage, setVendorLanguage] = useState('fa')
+  
+  const pageTranslations = {
+    en: {
+      title: 'Store Settings',
+      subtitle: 'Customize your store page',
+      preview: 'Preview Store',
+      storeBranding: 'Store Branding',
+      storeLogo: 'Store Logo',
+      uploadLogo: 'Upload Logo',
+      logoSize: 'Recommended: 400x400 pixels',
+      coverImage: 'Store Cover Image',
+      uploadCover: 'Upload Cover',
+      coverSize: 'Recommended: 1200x400 pixels',
+      basicInfo: 'Basic Information',
+      companyName: 'Official Company Name',
+      displayName: 'Display Name (Optional)',
+      displayPlaceholder: 'Shorter name for display',
+      slogan: 'Store Slogan',
+      sloganPlaceholder: 'Best Quality, Best Price',
+      aboutStore: 'About Store',
+      aboutPlaceholder: 'Complete description about company, history, products and services...',
+      contactInfo: 'Contact Information',
+      email: 'Email',
+      phone: 'Phone',
+      whatsapp: 'WhatsApp (Optional)',
+      telegram: 'Telegram (Optional)',
+      website: 'Website (Optional)',
+      instagram: 'Instagram (Optional)',
+      locationAddress: 'Address & Location',
+      country: 'Country',
+      city: 'City',
+      fullAddress: 'Full Address',
+      postalCode: 'Postal Code',
+      businessDetails: 'Business Details',
+      businessType: 'Business Type',
+      selectType: 'Select type',
+      yearEstablished: 'Year Established',
+      employees: 'Number of Employees',
+      selectEmployees: 'Select range',
+      seoSettings: 'SEO Optimization',
+      metaDescription: 'Meta Description',
+      metaPlaceholder: 'Short description for search results (max 160 characters)',
+      keywords: 'Keywords',
+      keywordsPlaceholder: 'clothing, wholesale, tehran',
+      keywordsSeparate: 'Separate with comma',
+      saveSettings: 'Save Settings',
+      saving: 'Saving...',
+      helpNote: 'Note: Complete this information makes your store look more professional and increases customer trust.',
+    },
+    zh: {
+      title: '店铺设置',
+      subtitle: '自定义您的店铺页面',
+      preview: '预览店铺',
+      storeBranding: '店铺品牌',
+      storeLogo: '店铺标志',
+      uploadLogo: '上传标志',
+      logoSize: '建议: 400x400像素',
+      coverImage: '店铺封面图',
+      uploadCover: '上传封面',
+      coverSize: '建议: 1200x400像素',
+      basicInfo: '基本信息',
+      companyName: '公司正式名称',
+      displayName: '显示名称（可选）',
+      displayPlaceholder: '用于显示的简短名称',
+      slogan: '店铺口号',
+      sloganPlaceholder: '优质第一，价格第二',
+      aboutStore: '关于店铺',
+      aboutPlaceholder: '公司、历史、产品和服务的完整描述...',
+      contactInfo: '联系信息',
+      email: '电子邮件',
+      phone: '电话',
+      whatsapp: 'WhatsApp（可选）',
+      telegram: 'Telegram（可选）',
+      website: '网站（可选）',
+      instagram: 'Instagram（可选）',
+      locationAddress: '地址和位置',
+      country: '国家',
+      city: '城市',
+      fullAddress: '完整地址',
+      postalCode: '邮政编码',
+      businessDetails: '业务详情',
+      businessType: '业务类型',
+      selectType: '选择类型',
+      yearEstablished: '成立年份',
+      employees: '员工数量',
+      selectEmployees: '选择范围',
+      seoSettings: 'SEO优化',
+      metaDescription: '元描述',
+      metaPlaceholder: '搜索结果的简短描述（最多160个字符）',
+      keywords: '关键词',
+      keywordsPlaceholder: '服装，批发，上海',
+      keywordsSeparate: '用逗号分隔',
+      saveSettings: '保存设置',
+      saving: '保存中...',
+      helpNote: '注意：完成这些信息使您的店铺看起来更专业，增加客户信任。',
+    },
+    fa: {
+      title: 'تنظیمات فروشگاه',
+      subtitle: 'صفحه اختصاصی فروشگاه خود را سفارشی‌سازی کنید',
+      preview: 'پیش‌نمایش فروشگاه',
+      storeBranding: 'برندینگ فروشگاه',
+      storeLogo: 'لوگوی فروشگاه',
+      uploadLogo: 'آپلود لوگو',
+      logoSize: 'توصیه می‌شود: 400x400 پیکسل',
+      coverImage: 'تصویر کاور فروشگاه',
+      uploadCover: 'آپلود تصویر کاور',
+      coverSize: 'توصیه می‌شود: 1200x400 پیکسل',
+      basicInfo: 'اطلاعات پایه',
+      companyName: 'نام رسمی شرکت',
+      displayName: 'نام نمایشی (اختیاری)',
+      displayPlaceholder: 'نام کوتاه‌تر برای نمایش',
+      slogan: 'شعار فروشگاه',
+      sloganPlaceholder: 'بهترین کیفیت، بهترین قیمت',
+      aboutStore: 'درباره فروشگاه',
+      aboutPlaceholder: 'توضیحات کامل درباره شرکت، تاریخچه، محصولات و خدمات...',
+      contactInfo: 'اطلاعات تماس',
+      email: 'ایمیل',
+      phone: 'تلفن',
+      whatsapp: 'واتساپ (اختیاری)',
+      telegram: 'تلگرام (اختیاری)',
+      website: 'وب‌سایت (اختیاری)',
+      instagram: 'اینستاگرام (اختیاری)',
+      locationAddress: 'آدرس و موقعیت',
+      country: 'کشور',
+      city: 'شهر',
+      fullAddress: 'آدرس کامل',
+      postalCode: 'کد پستی',
+      businessDetails: 'جزئیات کسب‌وکار',
+      businessType: 'نوع کسب‌وکار',
+      selectType: 'انتخاب کنید',
+      yearEstablished: 'سال تأسیس',
+      employees: 'تعداد کارکنان',
+      selectEmployees: 'انتخاب کنید',
+      seoSettings: 'بهینه‌سازی موتور جستجو (SEO)',
+      metaDescription: 'توضیحات متا',
+      metaPlaceholder: 'توضیح کوتاهی درباره فروشگاه برای نتایج جستجو (حداکثر ۱۶۰ کاراکتر)',
+      keywords: 'کلمات کلیدی',
+      keywordsPlaceholder: 'پوشاک، عمده‌فروشی، تهران',
+      keywordsSeparate: 'با کاما جدا کنید',
+      saveSettings: 'ذخیره تنظیمات',
+      saving: 'در حال ذخیره...',
+      helpNote: 'نکته: با تکمیل این اطلاعات، صفحه اختصاصی فروشگاه شما حرفه‌ای‌تر به نظر می‌رسد و اعتماد مشتریان افزایش می‌یابد.',
+    }
+  }
+
+  const txt = pageTranslations[dashboardLanguage] || pageTranslations.fa
+  const textDir = isInternational ? 'ltr' : 'rtl'
+  const textAlign = isInternational ? 'text-left' : 'text-right'
   
   // Load existing vendor data
   useEffect(() => {
@@ -169,12 +322,12 @@ export default function StoreSettingsPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="card p-6">
+    <div className="space-y-6" dir={textDir}>
+      <div className={`card p-6 ${textAlign}`}>
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold mb-2">تنظیمات فروشگاه</h1>
-            <p className="text-gray-600">صفحه اختصاصی فروشگاه خود را سفارشی‌سازی کنید</p>
+            <h1 className="text-2xl font-bold mb-2">{txt.title}</h1>
+            <p className="text-gray-600">{txt.subtitle}</p>
           </div>
           <button
             type="button"
@@ -182,16 +335,16 @@ export default function StoreSettingsPage() {
             className="btn btn-outline flex items-center gap-2"
           >
             <Eye size={20} />
-            پیش‌نمایش فروشگاه
+            {txt.preview}
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Store Branding */}
           <div className="pb-6 border-b">
-            <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+            <h3 className={`text-lg font-bold mb-4 flex items-center gap-2 ${textAlign}`}>
               <Store size={20} className="text-primary-600" />
-              برندینگ فروشگاه
+              {txt.storeBranding}
             </h3>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
