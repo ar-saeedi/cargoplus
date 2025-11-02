@@ -13,10 +13,13 @@ import VendorLayout from './layouts/VendorLayout'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/auth/LoginPage'
 import RegisterPage from './pages/auth/RegisterPage'
+import RegisterBuyerPage from './pages/auth/RegisterBuyerPage'
+import RegisterVendorPage from './pages/auth/RegisterVendorPage'
 import ProductListPage from './pages/products/ProductListPage'
 import ProductDetailPage from './pages/products/ProductDetailPage'
 import CartPage from './pages/cart/CartPage'
 import CheckoutPage from './pages/checkout/CheckoutPage'
+import VendorStorePage from './pages/VendorStorePage'
 
 // Buyer Dashboard Pages
 import BuyerDashboard from './pages/dashboard/BuyerDashboard'
@@ -79,6 +82,11 @@ function App() {
       {/* Auth Routes */}
       <Route path="/auth/login" element={<LoginPage />} />
       <Route path="/auth/register" element={<RegisterPage />} />
+      <Route path="/auth/register/buyer" element={<RegisterBuyerPage />} />
+      <Route path="/auth/register/vendor" element={<RegisterVendorPage />} />
+      
+      {/* Vendor Store Page */}
+      <Route path="/store/:vendorId" element={<VendorStorePage />} />
 
       {/* Buyer Dashboard Routes */}
       <Route path="/dashboard" element={<DashboardLayout />}>

@@ -20,8 +20,18 @@ export const useAuthStore = create((set) => ({
     return { data, error }
   },
   
-  register: async ({ email, password, fullName, phone }) => {
-    const { data, error } = await auth.signUp({ email, password, fullName, phone })
+  register: async ({ email, password, fullName, phone, userType = 'buyer', companyName, businessType, address, city }) => {
+    const { data, error} = await auth.signUp({ 
+      email, 
+      password, 
+      fullName, 
+      phone,
+      userType,
+      companyName,
+      businessType,
+      address,
+      city
+    })
     if (!error && data.user) {
       set({ user: data.user, isAuthenticated: true })
     }
