@@ -6,7 +6,7 @@
 ![Supabase](https://img.shields.io/badge/Supabase-Enabled-3ecf8e.svg?logo=supabase)
 ![RTL](https://img.shields.io/badge/RTL-Supported-success.svg)
 
-یک پلتفرم جامع بازار آنلاین B2B و B2C به زبان فارسی با پشتیبانی کامل از RTL، الهام گرفته از 1688.com
+یک پلتفرم جامع بازار آنلاین B2B و B2C به زبان فارسی با پشتیبانی کامل از RTL
 
 ---
 
