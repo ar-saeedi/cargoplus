@@ -93,7 +93,6 @@ export default function RegisterVendorInternationalPage() {
   }
 
   const t = translations[lang] || translations.en
-  const isRTL = lang === 'ar'
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
@@ -173,7 +172,7 @@ export default function RegisterVendorInternationalPage() {
   }
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center p-4 py-12 ${isRTL ? 'rtl' : 'ltr'}`}>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center p-4 py-12" dir="ltr">
       <div className="w-full max-w-3xl">
         <Link to="/" className="flex justify-center mb-6">
           <Logo size="md" showText={true} />

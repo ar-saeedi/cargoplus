@@ -50,7 +50,7 @@ export default function InternationalVendorPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center p-4" dir="ltr">
       <div className="w-full max-w-4xl">
         <Link to="/" className="flex justify-center mb-8">
           <Logo size="lg" showText={true} />
@@ -95,7 +95,7 @@ export default function InternationalVendorPage() {
                   selectedLanguage === language.code ? 'translate-x-2' : ''
                 }`}>
                   <span>Continue</span>
-                  <ArrowRight size={18} className={language.dir === 'rtl' ? 'rotate-180' : ''} />
+                  <ArrowRight size={18} />
                 </div>
               </Link>
             ))}
@@ -108,16 +108,15 @@ export default function InternationalVendorPage() {
               className="text-gray-600 hover:text-gray-900 text-sm inline-flex items-center gap-2"
             >
               <ArrowRight size={16} className="rotate-180" />
-              <span>Back to Persian Registration</span>
-              <span>返回波斯语注册</span>
+              <span>Back to Persian Registration / 返回波斯语注册</span>
             </Link>
           </div>
 
           {/* Info */}
-          <div className="mt-8 p-6 bg-blue-50 rounded-xl">
+          <div className="mt-8 p-6 bg-blue-50 rounded-xl text-left">
             <h4 className="font-bold text-blue-900 mb-3 flex items-center gap-2">
               <Globe size={20} />
-              Why Register as International Vendor?
+              <span>Why Register as International Vendor?</span>
             </h4>
             <ul className="space-y-2 text-sm text-blue-800">
               <li className="flex items-center gap-2">
