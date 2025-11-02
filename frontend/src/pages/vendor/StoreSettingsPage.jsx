@@ -301,12 +301,25 @@ export default function StoreSettingsPage() {
   }
 
   const handlePreviewStore = async () => {
-    // Get vendor ID first
-    const result = await getVendorProfile(user?.id)
-    if (result.success && result.data) {
-      window.open(`/store/${result.data.id}`, '_blank')
-    } else {
-      alert('لطفا ابتدا تنظیمات را ذخیره کنید')
+    try {
+      // Get vendor ID first
+      const result = await getVendorProfile(user?.id)
+      if (result.success && result.data) {
+        window.open(`/store/${result.data.id}`, '_blank')
+      } else {
+        // Create vendor profile first if doesn't exist
+        const saveResult = await handleSubmit(new Event('submit'))
+        if (saveResult !== false) {
+          // Retry after save
+          const retryResult = await getVendorProfile(user?.id)
+          if (retryResult.success && retryResult.data) {
+            window.open(`/store/${retryResult.data.id}`, '_blank')
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Preview error:', error)
+      alert(dashboardLanguage === 'en' ? 'Please save settings first' : 'لطفا ابتدا تنظیمات را ذخیره کنید')
     }
   }
   

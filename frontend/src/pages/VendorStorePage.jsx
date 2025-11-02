@@ -92,12 +92,16 @@ export default function VendorStorePage() {
     )
   }
 
-  if (!vendor) {
+  if (!loading && !vendor) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
+          <Store size={64} className="mx-auto text-gray-400 mb-4" />
           <h2 className="text-2xl font-bold text-gray-900 mb-4">فروشگاه یافت نشد</h2>
-          <Link to="/" className="text-primary-600 hover:underline">
+          <p className="text-gray-600 mb-6">
+            این فروشگاه هنوز ایجاد نشده است یا در دسترس نیست
+          </p>
+          <Link to="/" className="btn btn-primary">
             بازگشت به صفحه اصلی
           </Link>
         </div>

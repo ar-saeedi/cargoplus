@@ -99,16 +99,16 @@ export async function getVendorProfile(userId) {
       .from('vendors')
       .select('*')
       .eq('user_id', userId)
-      .single()
+      .maybeSingle() // Use maybeSingle instead of single to avoid error on not found
 
-    if (error && error.code !== 'PGRST116') { // PGRST116 = not found
+    if (error) {
       throw error
     }
 
     return { success: true, data }
   } catch (error) {
     console.error('Error getting vendor profile:', error)
-    return { success: false, error: error.message }
+    return { success: false, error: error.message, data: null }
   }
 }
 
