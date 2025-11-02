@@ -14,7 +14,7 @@ export const isSupabaseConfigured = () => {
 
 // Auth helpers
 export const auth = {
-  signUp: async ({ email, password, fullName, phone, userType = 'buyer', companyName, businessType, address, city }) => {
+  signUp: async ({ email, password, fullName, phone, userType = 'buyer', companyName, businessType, address, city, country, postalCode, isInternational = false, language = 'fa' }) => {
     if (!isSupabaseConfigured()) {
       console.warn('Supabase not configured. Please add your credentials to .env file')
       return { data: null, error: new Error('Supabase not configured') }
@@ -31,6 +31,10 @@ export const auth = {
           business_type: businessType,
           address: address,
           city: city,
+          country: country,
+          postal_code: postalCode,
+          is_international: isInternational,
+          language: language,
         }
       }
     })

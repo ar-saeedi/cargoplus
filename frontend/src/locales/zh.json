@@ -1,0 +1,49 @@
+{
+  "common": {
+    "search": "搜索",
+    "login": "登录",
+    "register": "注册",
+    "logout": "登出",
+    "cart": "购物车",
+    "profile": "个人资料",
+    "dashboard": "仪表板",
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "edit": "编辑",
+    "submit": "提交",
+    "loading": "加载中...",
+    "home": "首页"
+  },
+  "auth": {
+    "email": "电子邮件",
+    "password": "密码",
+    "confirmPassword": "确认密码",
+    "fullName": "全名",
+    "phoneNumber": "电话号码",
+    "loginTitle": "登录您的账户",
+    "registerTitle": "注册",
+    "registerVendor": "注册为卖家",
+    "companyName": "公司名称",
+    "businessType": "业务类型",
+    "address": "地址",
+    "city": "城市",
+    "country": "国家",
+    "postalCode": "邮政编码"
+  },
+  "vendor": {
+    "internationalVendor": "国际卖家",
+    "selectLanguage": "选择您的语言",
+    "businessInfo": "企业信息",
+    "contactInfo": "联系信息",
+    "personalInfo": "个人信息",
+    "businessTypes": {
+      "manufacturer": "制造商 / 工厂",
+      "wholesaler": "批发商",
+      "retailer": "零售商",
+      "distributor": "分销商",
+      "importer": "进出口商"
+    }
+  }
+}
+

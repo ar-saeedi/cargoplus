@@ -1,0 +1,49 @@
+{
+  "common": {
+    "search": "Search",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "cart": "Cart",
+    "profile": "Profile",
+    "dashboard": "Dashboard",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "submit": "Submit",
+    "loading": "Loading...",
+    "home": "Home"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "fullName": "Full Name",
+    "phoneNumber": "Phone Number",
+    "loginTitle": "Login to Your Account",
+    "registerTitle": "Register",
+    "registerVendor": "Register as Vendor",
+    "companyName": "Company Name",
+    "businessType": "Business Type",
+    "address": "Address",
+    "city": "City",
+    "country": "Country",
+    "postalCode": "Postal Code"
+  },
+  "vendor": {
+    "internationalVendor": "International Vendor",
+    "selectLanguage": "Select Your Language",
+    "businessInfo": "Business Information",
+    "contactInfo": "Contact Information",
+    "personalInfo": "Personal Information",
+    "businessTypes": {
+      "manufacturer": "Manufacturer / Factory",
+      "wholesaler": "Wholesaler",
+      "retailer": "Retailer",
+      "distributor": "Distributor",
+      "importer": "Importer / Exporter"
+    }
+  }
+}
+

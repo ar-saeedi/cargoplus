@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuthStore } from '../../store/authStore'
-import { Mail, Lock, User as UserIcon, Phone, Store, Building, MapPin } from 'lucide-react'
+import { Mail, Lock, User as UserIcon, Phone, Store, Building, MapPin, Globe } from 'lucide-react'
 import Logo from '../../components/Logo'
 
 export default function RegisterVendorPage() {
@@ -121,8 +121,18 @@ export default function RegisterVendorPage() {
             <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center shadow-lg">
               <Store className="text-white" size={32} />
             </div>
-            <h1 className="text-2xl font-bold mb-2">ثبت‌نام فروشنده</h1>
+            <h1 className="text-2xl font-bold mb-2">ثبت‌نام فروشنده ایرانی</h1>
             <p className="text-gray-600 text-sm">فروشگاه آنلاین خود را راه‌اندازی کنید</p>
+            
+            {/* International Vendor Link */}
+            <Link
+              to="/auth/register/vendor/international"
+              className="mt-4 inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 bg-blue-50 px-4 py-2 rounded-lg transition-colors"
+            >
+              <Globe size={18} />
+              <span>International Vendor? Register Here</span>
+              <span className="text-xs">🇬🇧 🇨🇳</span>
+            </Link>
           </div>
 
           {errors.general && (
