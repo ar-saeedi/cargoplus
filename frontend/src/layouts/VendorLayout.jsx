@@ -1,4 +1,4 @@
-import { Outlet, Link, useLocation } from 'react-router-dom'
+import { Outlet, Link, useLocation, Navigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { 
   LayoutDashboard,
@@ -11,10 +11,21 @@ import {
 } from 'lucide-react'
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
+import { useAuthStore } from '../store/authStore'
 
 export default function VendorLayout() {
   const { t } = useTranslation()
   const location = useLocation()
+  const { user } = useAuthStore()
+  
+  // REDIRECT INTERNATIONAL VENDORS TO INTERNATIONAL DASHBOARD
+  const isInternational = user?.user_metadata?.is_international === true || user?.user_metadata?.is_international === 'true'
+  const language = user?.user_metadata?.language
+  
+  if (isInternational || (language && language !== 'fa')) {
+    console.log('International vendor detected, redirecting to /vendor/international')
+    return <Navigate to="/vendor/international" replace />
+  }
 
   const menuItems = [
     { path: '/vendor', label: t('vendor.dashboard'), icon: LayoutDashboard },
