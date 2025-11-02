@@ -39,10 +39,26 @@ export default function LoginPage() {
       })
 
       if (error) {
-        setError('ایمیل یا رمز عبور اشتباه است')
+        console.error('Login error:', error)
+        
+        // Show specific error messages
+        if (error.message?.includes('Invalid login credentials')) {
+          setError('ایمیل یا رمز عبور اشتباه است')
+        } else if (error.message?.includes('Email not confirmed')) {
+          setError('لطفا ابتدا ایمیل خود را تایید کنید. ایمیل تایید را بررسی کنید')
+        } else {
+          setError(error.message || 'خطا در ورود. لطفا دوباره تلاش کنید')
+        }
+      } else if (!data?.session) {
+        setError('خطا در ایجاد نشست. لطفا دوباره تلاش کنید')
       } else {
+        // Login successful
+        console.log('Login successful:', data)
+        
         // Redirect based on user type
         const userType = data?.user?.user_metadata?.user_type || 'buyer'
+        console.log('User type:', userType)
+        
         if (userType === 'vendor') {
           navigate('/vendor')
         } else {
@@ -50,6 +66,7 @@ export default function LoginPage() {
         }
       }
     } catch (err) {
+      console.error('Login exception:', err)
       setError('خطایی رخ داده است. لطفا دوباره تلاش کنید')
     } finally {
       setLoading(false)

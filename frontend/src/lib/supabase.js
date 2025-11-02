@@ -46,11 +46,21 @@ export const auth = {
       console.warn('Supabase not configured. Please add your credentials to .env file')
       return { data: null, error: new Error('Supabase not configured') }
     }
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
-    return { data, error }
+    
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
+      
+      // Log for debugging
+      console.log('Supabase signIn response:', { data, error })
+      
+      return { data, error }
+    } catch (err) {
+      console.error('SignIn error:', err)
+      return { data: null, error: err }
+    }
   },
 
   signOut: async () => {
