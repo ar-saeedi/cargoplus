@@ -1,19 +1,12 @@
-import { useTranslation } from 'react-i18next'
-import { Link, useOutletContext, useLocation } from 'react-router-dom'
+import { Link, useOutletContext } from 'react-router-dom'
 import { Package, ShoppingCart, DollarSign, TrendingUp, Store, Eye } from 'lucide-react'
 
-export default function VendorDashboard() {
-  const { t } = useTranslation()
-  const location = useLocation()
-  const context = useOutletContext()
-  const isInternational = location.pathname.includes('/international')
-  
-  // Get language from context if international
-  const language = context?.language || 'fa'
+export default function VendorDashboardInternational() {
+  const { language = 'en', translations } = useOutletContext() || {}
 
-  const dashboardText = {
+  const dashboardTranslations = {
     en: {
-      title: 'Vendor Dashboard',
+      dashboard: 'Vendor Dashboard',
       welcome: 'Welcome to Vendor Panel',
       products: 'Products',
       orders: 'Orders',
@@ -22,12 +15,12 @@ export default function VendorDashboard() {
       storePageTitle: 'Your Store Page',
       storePageDesc: 'Create a professional page for your store and gain customer trust',
       storeSettings: 'Store Settings',
-      viewPublic: 'View Public Page',
+      viewPublicPage: 'View Public Page',
       recentSales: 'Recent Sales Statistics',
       chartPlaceholder: 'Statistical chart will be displayed here',
     },
     zh: {
-      title: '卖家仪表板',
+      dashboard: '卖家仪表板',
       welcome: '欢迎来到卖家面板',
       products: '产品',
       orders: '订单',
@@ -36,44 +29,40 @@ export default function VendorDashboard() {
       storePageTitle: '您的店铺页面',
       storePageDesc: '为您的店铺创建专业页面，赢得客户信任',
       storeSettings: '店铺设置',
-      viewPublic: '查看公开页面',
+      viewPublicPage: '查看公开页面',
       recentSales: '近期销售统计',
       chartPlaceholder: '统计图表将在这里显示',
     },
-    fa: {
-      title: 'داشبورد فروشنده',
-      welcome: 'خوش آمدید به پنل فروشنده',
-      products: 'محصولات من',
-      orders: 'سفارشات',
-      revenue: 'درآمد',
-      sales: 'فروش',
-      storePageTitle: 'صفحه اختصاصی فروشگاه شما',
-      storePageDesc: 'یک صفحه حرفه‌ای برای فروشگاه خود بسازید و اعتماد مشتریان را جلب کنید',
-      storeSettings: 'تنظیمات صفحه فروشگاه',
-      viewPublic: 'مشاهده صفحه عمومی',
-      recentSales: 'آمار فروش اخیر',
-      chartPlaceholder: 'نمودار آماری در اینجا نمایش داده می‌شود',
+    ar: {
+      dashboard: 'لوحة تحكم البائع',
+      welcome: 'مرحبًا بك في لوحة البائع',
+      products: 'المنتجات',
+      orders: 'الطلبات',
+      revenue: 'الإيرادات',
+      sales: 'المبيعات',
+      storePageTitle: 'صفحة متجرك',
+      storePageDesc: 'أنشئ صفحة احترافية لمتجرك واكسب ثقة العملاء',
+      storeSettings: 'إعدادات المتجر',
+      viewPublicPage: 'عرض الصفحة العامة',
+      recentSales: 'إحصائيات المبيعات الأخيرة',
+      chartPlaceholder: 'سيتم عرض الرسم البياني الإحصائي هنا',
     }
   }
 
-  const txt = dashboardText[language] || dashboardText.fa
-  const textDir = isInternational ? 'ltr' : 'rtl'
-  const textAlign = isInternational ? 'text-left' : 'text-right'
+  const t = dashboardTranslations[language] || dashboardTranslations.en
 
   const stats = [
-    { label: txt.products, value: '45', icon: Package, color: 'bg-blue-500' },
-    { label: txt.orders, value: '23', icon: ShoppingCart, color: 'bg-green-500' },
-    { label: txt.revenue, value: '12.5M', icon: DollarSign, color: 'bg-purple-500' },
-    { label: txt.sales, value: '+25%', icon: TrendingUp, color: 'bg-orange-500' },
+    { label: t.products, value: '45', icon: Package, color: 'bg-blue-500' },
+    { label: t.orders, value: '23', icon: ShoppingCart, color: 'bg-green-500' },
+    { label: t.revenue, value: '12.5M', icon: DollarSign, color: 'bg-purple-500' },
+    { label: t.sales, value: '+25%', icon: TrendingUp, color: 'bg-orange-500' },
   ]
 
-  const basePath = isInternational ? '/vendor/international' : '/vendor'
-
   return (
-    <div className="space-y-6" dir={textDir}>
-      <div className={`card p-6 ${textAlign}`}>
-        <h1 className="text-2xl font-bold mb-2">{txt.title}</h1>
-        <p className="text-gray-600">{txt.welcome}</p>
+    <div className="space-y-6" dir="ltr">
+      <div className="card p-6 text-left">
+        <h1 className="text-2xl font-bold mb-2">{t.dashboard}</h1>
+        <p className="text-gray-600">{t.welcome}</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -85,7 +74,7 @@ export default function VendorDashboard() {
                 <div className={`w-12 h-12 ${stat.color} rounded-lg flex items-center justify-center text-white`}>
                   <Icon size={24} />
                 </div>
-                <div>
+                <div className="text-left">
                   <div className="text-2xl font-bold">{stat.value}</div>
                   <div className="text-sm text-gray-600">{stat.label}</div>
                 </div>
@@ -98,22 +87,22 @@ export default function VendorDashboard() {
       {/* Store Page Quick Access */}
       <div className="card p-6 bg-gradient-to-br from-primary-50 to-orange-50 border-2 border-primary-200">
         <div className="flex items-center justify-between">
-          <div className={textAlign}>
+          <div className="text-left">
             <h3 className="text-lg font-bold text-gray-900 mb-2 flex items-center gap-2">
               <Store size={24} className="text-primary-600" />
-              {txt.storePageTitle}
+              {t.storePageTitle}
             </h3>
             <p className="text-gray-700 mb-4">
-              {txt.storePageDesc}
+              {t.storePageDesc}
             </p>
             <div className="flex flex-wrap gap-3">
-              <Link to={`${basePath}/store-page`} className="btn btn-primary">
+              <Link to="/vendor/international/store-page" className="btn btn-primary">
                 <Store size={18} />
-                {txt.storeSettings}
+                {t.storeSettings}
               </Link>
               <Link to="/store/preview" target="_blank" className="btn btn-outline">
                 <Eye size={18} />
-                {txt.viewPublic}
+                {t.viewPublicPage}
               </Link>
             </div>
           </div>
@@ -123,10 +112,10 @@ export default function VendorDashboard() {
         </div>
       </div>
 
-      <div className={`card p-6 ${textAlign}`}>
-        <h2 className="text-lg font-bold mb-4">{txt.recentSales}</h2>
+      <div className="card p-6">
+        <h2 className="text-lg font-bold mb-4 text-left">{t.recentSales}</h2>
         <div className="h-64 flex items-center justify-center bg-gray-50 rounded-lg">
-          <p className="text-gray-500">{txt.chartPlaceholder}</p>
+          <p className="text-gray-500">{t.chartPlaceholder}</p>
         </div>
       </div>
     </div>
