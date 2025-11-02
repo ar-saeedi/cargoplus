@@ -15,6 +15,7 @@ import LoginPage from './pages/auth/LoginPage'
 import RegisterPage from './pages/auth/RegisterPage'
 import RegisterBuyerPage from './pages/auth/RegisterBuyerPage'
 import RegisterVendorPage from './pages/auth/RegisterVendorPage'
+import VerifyEmailPage from './pages/auth/VerifyEmailPage'
 import ProductListPage from './pages/products/ProductListPage'
 import ProductDetailPage from './pages/products/ProductDetailPage'
 import CartPage from './pages/cart/CartPage'
@@ -84,6 +85,7 @@ function App() {
       <Route path="/auth/register" element={<RegisterPage />} />
       <Route path="/auth/register/buyer" element={<RegisterBuyerPage />} />
       <Route path="/auth/register/vendor" element={<RegisterVendorPage />} />
+      <Route path="/auth/verify-email" element={<VerifyEmailPage />} />
       
       {/* Vendor Store Page */}
       <Route path="/store/:vendorId" element={<VendorStorePage />} />

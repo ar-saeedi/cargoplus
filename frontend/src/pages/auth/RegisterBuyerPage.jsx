@@ -88,7 +88,8 @@ export default function RegisterBuyerPage() {
       if (error) {
         setErrors({ general: 'خطا در ثبت‌نام. لطفا دوباره تلاش کنید' })
       } else {
-        navigate('/dashboard')
+        // Redirect to email verification page
+        navigate('/auth/verify-email')
       }
     } catch (err) {
       setErrors({ general: 'خطایی رخ داده است. لطفا دوباره تلاش کنید' })
