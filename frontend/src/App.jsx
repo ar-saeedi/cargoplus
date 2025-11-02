@@ -19,6 +19,8 @@ import RegisterVendorPage from './pages/auth/RegisterVendorPage'
 import InternationalVendorPage from './pages/auth/InternationalVendorPage'
 import RegisterVendorInternationalPage from './pages/auth/RegisterVendorInternationalPage'
 import VerifyEmailPage from './pages/auth/VerifyEmailPage'
+import ForgotPasswordPage from './pages/auth/ForgotPasswordPage'
+import ResetPasswordPage from './pages/auth/ResetPasswordPage'
 import ProductListPage from './pages/products/ProductListPage'
 import ProductDetailPage from './pages/products/ProductDetailPage'
 import CartPage from './pages/cart/CartPage'
@@ -92,6 +94,8 @@ function App() {
       <Route path="/auth/register/vendor/international" element={<InternationalVendorPage />} />
       <Route path="/auth/register/vendor/international/:lang" element={<RegisterVendorInternationalPage />} />
       <Route path="/auth/verify-email" element={<VerifyEmailPage />} />
+      <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />
+      <Route path="/auth/reset-password" element={<ResetPasswordPage />} />
       
       {/* Vendor Store Page */}
       <Route path="/store/:vendorId" element={<VendorStorePage />} />

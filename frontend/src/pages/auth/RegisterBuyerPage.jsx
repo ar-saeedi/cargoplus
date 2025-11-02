@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuthStore } from '../../store/authStore'
-import { Mail, Lock, User as UserIcon, Phone, ShoppingBag } from 'lucide-react'
+import { Mail, Lock, User as UserIcon, Phone, ShoppingBag, Eye, EyeOff } from 'lucide-react'
 import Logo from '../../components/Logo'
 
 export default function RegisterBuyerPage() {
@@ -18,6 +18,8 @@ export default function RegisterBuyerPage() {
     confirmPassword: '',
     agreeToTerms: false,
   })
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
 
@@ -207,14 +209,22 @@ export default function RegisterBuyerPage() {
               <div className="relative">
                 <Lock className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className={`w-full pr-11 ${errors.password ? 'border-red-500' : ''}`}
+                  className={`w-full pr-11 pl-11 ${errors.password ? 'border-red-500' : ''}`}
                   placeholder="••••••••"
                   required
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                  tabIndex="-1"
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
               </div>
               {errors.password && (
                 <span className="text-xs text-red-600">{errors.password}</span>
@@ -226,14 +236,22 @@ export default function RegisterBuyerPage() {
               <div className="relative">
                 <Lock className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
                 <input
-                  type="password"
+                  type={showConfirmPassword ? 'text' : 'password'}
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className={`w-full pr-11 ${errors.confirmPassword ? 'border-red-500' : ''}`}
+                  className={`w-full pr-11 pl-11 ${errors.confirmPassword ? 'border-red-500' : ''}`}
                   placeholder="••••••••"
                   required
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                  tabIndex="-1"
+                >
+                  {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
               </div>
               {errors.confirmPassword && (
                 <span className="text-xs text-red-600">{errors.confirmPassword}</span>
