@@ -83,7 +83,7 @@ export default function RegisterVendorPage() {
     setLoading(true)
 
     try {
-      const { error } = await register({
+      const { data, error } = await register({
         email: formData.email,
         password: formData.password,
         fullName: formData.fullName,
@@ -96,13 +96,38 @@ export default function RegisterVendorPage() {
       })
 
       if (error) {
-        setErrors({ general: 'خطا در ثبت‌نام. لطفا دوباره تلاش کنید' })
+        console.error('Registration error:', error)
+        // Show specific error messages
+        let errorMessage = 'خطا در ثبت‌نام. لطفا دوباره تلاش کنید'
+        
+        if (error.message?.includes('already registered') || error.message?.includes('already been registered')) {
+          errorMessage = 'این ایمیل قبلاً ثبت شده است. لطفا وارد شوید'
+        } else if (error.message?.includes('invalid email')) {
+          errorMessage = 'ایمیل معتبر نیست'
+        } else if (error.message?.includes('weak password') || error.message?.includes('password')) {
+          errorMessage = 'رمز عبور باید حداقل ۶ کاراکتر باشد'
+        } else if (error.message) {
+          // Show actual error from Supabase
+          errorMessage = `خطا: ${error.message}`
+        }
+        
+        setErrors({ general: errorMessage })
       } else {
-        // Redirect to email verification page
-        navigate('/auth/verify-email')
+        // Check if email confirmation is required
+        if (data?.user && !data?.session) {
+          // Email confirmation required - redirect to verify page
+          navigate('/auth/verify-email')
+        } else if (data?.session) {
+          // Auto-logged in - go to vendor panel
+          navigate('/vendor')
+        } else {
+          // Just in case, redirect to verify
+          navigate('/auth/verify-email')
+        }
       }
     } catch (err) {
-      setErrors({ general: 'خطایی رخ داده است. لطفا دوباره تلاش کنید' })
+      console.error('Unexpected error:', err)
+      setErrors({ general: `خطا: ${err.message}` || 'خطایی رخ داده است. لطفا دوباره تلاش کنید' })
     } finally {
       setLoading(false)
     }

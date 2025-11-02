@@ -77,7 +77,7 @@ export default function RegisterBuyerPage() {
     setLoading(true)
 
     try {
-      const { error } = await register({
+      const { data, error } = await register({
         email: formData.email,
         password: formData.password,
         fullName: formData.fullName,
@@ -86,13 +86,34 @@ export default function RegisterBuyerPage() {
       })
 
       if (error) {
-        setErrors({ general: 'خطا در ثبت‌نام. لطفا دوباره تلاش کنید' })
+        console.error('Registration error:', error)
+        // Show specific error messages
+        let errorMessage = 'خطا در ثبت‌نام. لطفا دوباره تلاش کنید'
+        
+        if (error.message?.includes('already registered')) {
+          errorMessage = 'این ایمیل قبلاً ثبت شده است'
+        } else if (error.message?.includes('invalid email')) {
+          errorMessage = 'ایمیل معتبر نیست'
+        } else if (error.message?.includes('weak password')) {
+          errorMessage = 'رمز عبور باید قوی‌تر باشد'
+        } else if (error.message) {
+          errorMessage = error.message
+        }
+        
+        setErrors({ general: errorMessage })
       } else {
-        // Redirect to email verification page
-        navigate('/auth/verify-email')
+        // Check if email confirmation is required
+        if (data?.user && !data?.session) {
+          // Email confirmation required - redirect to verify page
+          navigate('/auth/verify-email')
+        } else if (data?.session) {
+          // Auto-logged in - go to dashboard
+          navigate('/dashboard')
+        }
       }
     } catch (err) {
-      setErrors({ general: 'خطایی رخ داده است. لطفا دوباره تلاش کنید' })
+      console.error('Unexpected error:', err)
+      setErrors({ general: err.message || 'خطایی رخ داده است. لطفا دوباره تلاش کنید' })
     } finally {
       setLoading(false)
     }
