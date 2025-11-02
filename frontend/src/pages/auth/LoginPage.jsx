@@ -32,7 +32,7 @@ export default function LoginPage() {
     setLoading(true)
 
     try {
-      const { error } = await login({
+      const { data, error } = await login({
         email: formData.email,
         password: formData.password,
       })
@@ -40,7 +40,13 @@ export default function LoginPage() {
       if (error) {
         setError('ایمیل یا رمز عبور اشتباه است')
       } else {
-        navigate('/dashboard')
+        // Redirect based on user type
+        const userType = data?.user?.user_metadata?.user_type || 'buyer'
+        if (userType === 'vendor') {
+          navigate('/vendor')
+        } else {
+          navigate('/dashboard')
+        }
       }
     } catch (err) {
       setError('خطایی رخ داده است. لطفا دوباره تلاش کنید')

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAuthStore } from './store/authStore'
 import LoadingScreen from './components/LoadingScreen'
+import { BuyerRoute, VendorRoute } from './components/ProtectedRoute'
 
 // Layouts
 import MainLayout from './layouts/MainLayout'
@@ -95,16 +96,16 @@ function App() {
       {/* Vendor Store Page */}
       <Route path="/store/:vendorId" element={<VendorStorePage />} />
 
-      {/* Buyer Dashboard Routes */}
-      <Route path="/dashboard" element={<DashboardLayout />}>
+      {/* Buyer Dashboard Routes - Protected for Buyers Only */}
+      <Route path="/dashboard" element={<BuyerRoute><DashboardLayout /></BuyerRoute>}>
         <Route index element={<BuyerDashboard />} />
         <Route path="orders" element={<OrdersPage />} />
         <Route path="favorites" element={<FavoritesPage />} />
         <Route path="addresses" element={<AddressesPage />} />
       </Route>
 
-      {/* Vendor Dashboard Routes */}
-      <Route path="/vendor" element={<VendorLayout />}>
+      {/* Vendor Dashboard Routes - Protected for Vendors Only */}
+      <Route path="/vendor" element={<VendorRoute><VendorLayout /></VendorRoute>}>
         <Route index element={<VendorDashboard />} />
         <Route path="products" element={<VendorProductsPage />} />
         <Route path="products/new" element={<AddProductPage />} />

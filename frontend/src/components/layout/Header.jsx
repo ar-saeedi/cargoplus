@@ -130,22 +130,26 @@ export default function Header({ onMenuClick }) {
                           <p className="font-medium text-gray-900">{user?.user_metadata?.full_name || 'کاربر'}</p>
                           <p className="text-sm text-gray-500 truncate" dir="ltr">{user?.email}</p>
                         </div>
-                        <Link
-                          to="/dashboard"
-                          className="flex items-center gap-2 px-4 py-2.5 hover:bg-gray-50 transition-colors"
-                          onClick={() => setShowUserMenu(false)}
-                        >
-                          <User size={18} />
-                          <span>{t('common.dashboard')}</span>
-                        </Link>
-                        <Link
-                          to="/vendor"
-                          className="flex items-center gap-2 px-4 py-2.5 hover:bg-gray-50 transition-colors"
-                          onClick={() => setShowUserMenu(false)}
-                        >
-                          <Store size={18} />
-                          <span>{t('dashboard.vendorCenter')}</span>
-                        </Link>
+                        {user?.user_metadata?.user_type === 'buyer' && (
+                          <Link
+                            to="/dashboard"
+                            className="flex items-center gap-2 px-4 py-2.5 hover:bg-gray-50 transition-colors"
+                            onClick={() => setShowUserMenu(false)}
+                          >
+                            <User size={18} />
+                            <span>{t('common.dashboard')}</span>
+                          </Link>
+                        )}
+                        {user?.user_metadata?.user_type === 'vendor' && (
+                          <Link
+                            to="/vendor"
+                            className="flex items-center gap-2 px-4 py-2.5 hover:bg-gray-50 transition-colors"
+                            onClick={() => setShowUserMenu(false)}
+                          >
+                            <Store size={18} />
+                            <span>{t('dashboard.vendorCenter')}</span>
+                          </Link>
+                        )}
                         <hr className="my-2" />
                         <button
                           onClick={() => {
