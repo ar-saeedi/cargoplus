@@ -21,6 +21,27 @@ export default function StoreSettingsPage() {
   const [logoPreview, setLogoPreview] = useState(null)
   const [coverPreview, setCoverPreview] = useState(null)
   const [vendorLanguage, setVendorLanguage] = useState('fa')
+  const [storeData, setStoreData] = useState({
+    companyName: '',
+    displayName: '',
+    description: '',
+    slogan: '',
+    email: '',
+    phone: '',
+    whatsapp: '',
+    telegram: '',
+    website: '',
+    instagram: '',
+    country: '',
+    city: '',
+    address: '',
+    postalCode: '',
+    businessType: '',
+    yearEstablished: '',
+    numberOfEmployees: '',
+    metaDescription: '',
+    keywords: '',
+  })
   
   const pageTranslations = {
     en: {
@@ -209,31 +230,6 @@ export default function StoreSettingsPage() {
       loadVendorData()
     }
   }, [user])
-  
-  const [storeData, setStoreData] = useState({
-    companyName: 'شرکت تست',
-    displayName: '',
-    description: '',
-    slogan: '',
-    email: '',
-    phone: '',
-    whatsapp: '',
-    telegram: '',
-    website: '',
-    instagram: '',
-    // Address
-    country: '',
-    city: '',
-    address: '',
-    postalCode: '',
-    // Business
-    businessType: '',
-    yearEstablished: '',
-    numberOfEmployees: '',
-    // SEO
-    metaDescription: '',
-    keywords: '',
-  })
 
   const handleChange = (e) => {
     const { name, value } = e.target
