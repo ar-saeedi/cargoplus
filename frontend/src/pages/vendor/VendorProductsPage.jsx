@@ -1,7 +1,7 @@
 import { Link, useOutletContext, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Plus, Edit, Trash2, Eye } from 'lucide-react'
+import { Plus, Edit, Trash2, Eye, Package } from 'lucide-react'
 import { useAuthStore } from '../../store/authStore'
 import { supabase } from '../../lib/supabase'
 
