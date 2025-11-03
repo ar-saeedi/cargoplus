@@ -13,7 +13,7 @@ import VendorInternationalLayout from './layouts/VendorInternationalLayout'
 
 // Pages
 import HomePage from './pages/HomePage'
-import LoginPage from './pages/auth/LoginPage'
+import LoginPageEnglish from './pages/auth/LoginPageEnglish'
 import RegisterPage from './pages/auth/RegisterPage'
 import RegisterBuyerPage from './pages/auth/RegisterBuyerPage'
 import RegisterVendorSimplified from './pages/auth/RegisterVendorSimplified'
@@ -86,7 +86,7 @@ function App() {
       </Route>
 
       {/* Auth Routes */}
-      <Route path="/auth/login" element={<LoginPage />} />
+      <Route path="/auth/login" element={<LoginPageEnglish />} />
       <Route path="/auth/register" element={<RegisterPage />} />
       <Route path="/auth/register/buyer" element={<RegisterBuyerPage />} />
       <Route path="/auth/register/vendor" element={<RegisterVendorSimplified />} />
