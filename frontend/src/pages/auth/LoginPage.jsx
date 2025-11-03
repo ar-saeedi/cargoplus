@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuthStore } from '../../store/authStore'
-import { Mail, Lock, Eye, EyeOff } from 'lucide-react'
+import { Mail, Lock, Eye, EyeOff, Globe, ChevronDown } from 'lucide-react'
 import Logo from '../../components/Logo'
 
 export default function LoginPage() {
@@ -10,6 +10,7 @@ export default function LoginPage() {
   const navigate = useNavigate()
   const login = useAuthStore((state) => state.login)
   
+  const [language, setLanguage] = useState('en')
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -18,6 +19,91 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+
+  const languages = [
+    { code: 'en', name: 'English', flag: '🇬🇧' },
+    { code: 'fa', name: 'فارسی', flag: '🇮🇷' },
+    { code: 'zh', name: '中文', flag: '🇨🇳' },
+    { code: 'ar', name: 'العربية', flag: '🇸🇦' },
+  ]
+
+  const translations = {
+    en: {
+      title: 'Login to Your Account',
+      subtitle: 'Enter your account to continue',
+      email: 'Email',
+      emailPlaceholder: 'example@email.com',
+      password: 'Password',
+      passwordPlaceholder: '••••••••',
+      rememberMe: 'Remember me',
+      forgotPassword: 'Forgot Password?',
+      loginButton: 'Login',
+      loggingIn: 'Logging in...',
+      noAccount: "Don't have an account?",
+      register: 'Register',
+      termsText: 'By logging in, you agree to the',
+      terms: 'Terms',
+      and: 'and',
+      privacy: 'Privacy Policy',
+    },
+    fa: {
+      title: 'ورود به حساب کاربری',
+      subtitle: 'به حساب کاربری خود وارد شوید',
+      email: 'ایمیل',
+      emailPlaceholder: 'example@email.com',
+      password: 'رمز عبور',
+      passwordPlaceholder: '••••••••',
+      rememberMe: 'مرا به خاطر بسپار',
+      forgotPassword: 'فراموشی رمز عبور',
+      loginButton: 'ورود',
+      loggingIn: 'در حال ورود...',
+      noAccount: 'حساب کاربری ندارید؟',
+      register: 'ثبت‌نام کنید',
+      termsText: 'با ورود به سایت، قوانین و',
+      terms: 'شرایط',
+      and: 'و',
+      privacy: 'حریم خصوصی',
+    },
+    zh: {
+      title: '登录您的账户',
+      subtitle: '输入您的账户以继续',
+      email: '电子邮件',
+      emailPlaceholder: 'example@email.com',
+      password: '密码',
+      passwordPlaceholder: '••••••••',
+      rememberMe: '记住我',
+      forgotPassword: '忘记密码？',
+      loginButton: '登录',
+      loggingIn: '登录中...',
+      noAccount: '还没有账户？',
+      register: '注册',
+      termsText: '登录即表示您同意',
+      terms: '条款',
+      and: '和',
+      privacy: '隐私政策',
+    },
+    ar: {
+      title: 'تسجيل الدخول إلى حسابك',
+      subtitle: 'أدخل حسابك للمتابعة',
+      email: 'البريد الإلكتروني',
+      emailPlaceholder: 'example@email.com',
+      password: 'كلمة المرور',
+      passwordPlaceholder: '••••••••',
+      rememberMe: 'تذكرني',
+      forgotPassword: 'نسيت كلمة المرور؟',
+      loginButton: 'تسجيل الدخول',
+      loggingIn: 'جاري تسجيل الدخول...',
+      noAccount: 'ليس لديك حساب؟',
+      register: 'سجل',
+      termsText: 'بتسجيل الدخول، فإنك توافق على',
+      terms: 'الشروط',
+      and: 'و',
+      privacy: 'سياسة الخصوصية',
+    }
+  }
+
+  const txt = translations[language]
+  const isRTL = language === 'fa' || language === 'ar'
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
