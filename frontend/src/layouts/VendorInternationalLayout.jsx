@@ -113,11 +113,11 @@ export default function VendorInternationalLayout() {
     <div className="min-h-screen flex flex-col bg-gray-50" dir="ltr">
       <Header onMenuClick={() => {}} />
       
-      <div className="flex-1 container mx-auto px-4 py-8">
-        <div className="grid grid-cols-12 gap-6">
+      <div className="flex-1 container mx-auto px-4 py-4 md:py-8">
+        <div className="grid grid-cols-12 gap-4 md:gap-6">
           {/* Sidebar */}
-          <aside className="col-span-12 md:col-span-3">
-            <div className="card p-4 sticky top-4">
+          <aside className="col-span-12 md:col-span-4 lg:col-span-3 xl:col-span-3">
+            <div className="card p-3 md:p-4 sticky top-20">
               <div className="flex items-center justify-between mb-4 pb-4 border-b">
                 <h2 className="text-lg font-bold text-left">
                   {t.vendorCenter}
@@ -173,7 +173,7 @@ export default function VendorInternationalLayout() {
           </aside>
 
           {/* Main Content */}
-          <main className="col-span-12 md:col-span-9">
+          <main className="col-span-12 md:col-span-8 lg:col-span-9 xl:col-span-9">
             <Outlet context={{ language: dashboardLanguage, translations: t }} />
           </main>
         </div>

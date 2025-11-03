@@ -61,54 +61,55 @@ export default function Header({ onMenuClick }) {
             </div>
 
             {/* Search Bar */}
-            <form onSubmit={handleSearch} className="flex-1 max-w-3xl">
-              <div className="relative">
+            <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-3xl">
+              <div className="relative w-full">
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="جستجوی محصولات، دسته‌بندی یا فروشنده..."
-                  className="w-full py-3 px-5 pr-12 rounded-xl border-2 border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all"
+                  className="w-full py-2 md:py-3 px-4 md:px-5 pr-10 md:pr-12 rounded-xl border-2 border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all text-sm md:text-base"
                 />
                 <button 
                   type="submit"
-                  className="absolute left-2 top-1/2 -translate-y-1/2 p-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors shadow-md hover:shadow-lg"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 p-2 md:p-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors shadow-md hover:shadow-lg"
                 >
-                  <Search size={20} />
+                  <Search size={18} className="md:hidden" />
+                  <Search size={20} className="hidden md:block" />
                 </button>
               </div>
             </form>
 
             {/* Actions */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 md:gap-2">
               {isAuthenticated ? (
                 <>
                   {/* Favorites */}
                   <Link 
                     to="/dashboard/favorites" 
-                    className="hidden md:flex p-2.5 hover:bg-gray-100 rounded-lg relative transition-colors group"
+                    className="hidden lg:flex p-2 md:p-2.5 hover:bg-gray-100 rounded-lg relative transition-colors group"
                     title={t('nav.favorites')}
                   >
-                    <Heart size={22} className="group-hover:text-red-500 transition-colors" />
+                    <Heart size={20} className="md:w-[22px] md:h-[22px] group-hover:text-red-500 transition-colors" />
                   </Link>
                   
                   {/* Cart */}
                   <Link 
                     to="/cart" 
-                    className="p-2.5 hover:bg-gray-100 rounded-lg relative transition-colors group"
+                    className="p-2 md:p-2.5 hover:bg-gray-100 rounded-lg relative transition-colors group"
                     title={t('nav.cart')}
                   >
-                    <ShoppingCart size={22} className="group-hover:text-primary-600 transition-colors" />
+                    <ShoppingCart size={20} className="md:w-[22px] md:h-[22px] group-hover:text-primary-600 transition-colors" />
                     {totalCartItems > 0 && (
-                      <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full min-w-[20px] h-5 flex items-center justify-center font-medium px-1 shadow-md">
+                      <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full min-w-[18px] md:min-w-[20px] h-4 md:h-5 flex items-center justify-center font-medium px-1 shadow-md">
                         {totalCartItems}
                       </span>
                     )}
                   </Link>
 
                   {/* Notifications */}
-                  <button className="hidden md:flex p-2.5 hover:bg-gray-100 rounded-lg relative transition-colors">
-                    <Bell size={22} />
+                  <button className="hidden lg:flex p-2 md:p-2.5 hover:bg-gray-100 rounded-lg relative transition-colors">
+                    <Bell size={20} className="md:w-[22px] md:h-[22px]" />
                     <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
                   </button>
 

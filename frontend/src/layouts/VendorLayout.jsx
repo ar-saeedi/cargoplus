@@ -41,11 +41,11 @@ export default function VendorLayout() {
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Header />
       
-      <div className="flex-1 container mx-auto px-4 py-8">
-        <div className="grid grid-cols-12 gap-6">
+      <div className="flex-1 container mx-auto px-4 py-4 md:py-8">
+        <div className="grid grid-cols-12 gap-4 md:gap-6">
           {/* Sidebar */}
-          <aside className="col-span-12 md:col-span-3">
-            <div className="card p-4 sticky top-4">
+          <aside className="col-span-12 md:col-span-4 lg:col-span-3 xl:col-span-3">
+            <div className="card p-3 md:p-4 sticky top-20">
               <h2 className="text-lg font-bold mb-4 pb-4 border-b">
                 {t('dashboard.vendorCenter')}
               </h2>
@@ -72,7 +72,7 @@ export default function VendorLayout() {
           </aside>
 
           {/* Main Content */}
-          <main className="col-span-12 md:col-span-9">
+          <main className="col-span-12 md:col-span-8 lg:col-span-9 xl:col-span-9">
             <Outlet />
           </main>
         </div>

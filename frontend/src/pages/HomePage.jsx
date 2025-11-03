@@ -67,13 +67,13 @@ export default function HomePage() {
         >
           {banners.map((banner) => (
             <SwiperSlide key={banner.id}>
-              <div className={`${banner.color} h-96 flex items-center justify-center text-white p-12 rounded-2xl`}>
+              <div className={`${banner.color} h-64 md:h-80 lg:h-96 flex items-center justify-center text-white p-6 md:p-12 rounded-2xl`}>
                 <div className="text-center">
-                  <h2 className="text-5xl font-bold mb-4">{banner.title}</h2>
-                  <p className="text-2xl mb-6">{banner.subtitle}</p>
-                  <Link to="/products" className="btn bg-white text-primary-600 hover:bg-gray-100 text-lg px-8">
+                  <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4">{banner.title}</h2>
+                  <p className="text-base md:text-xl lg:text-2xl mb-4 md:mb-6">{banner.subtitle}</p>
+                  <Link to="/products" className="btn bg-white text-primary-600 hover:bg-gray-100 text-sm md:text-base lg:text-lg px-6 md:px-8">
                     همین حالا خرید کنید
-                    <ArrowLeft className="rtl-flip" />
+                    <ArrowLeft className="rtl-flip" size={18} />
                   </Link>
                 </div>
               </div>
@@ -106,22 +106,22 @@ export default function HomePage() {
 
       {/* Categories */}
       <section className="container mx-auto px-4">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold">{t('homepage.popularCategories')}</h2>
-          <Link to="/products" className="text-primary-600 hover:text-primary-700 flex items-center gap-1">
+        <div className="flex items-center justify-between mb-4 md:mb-6">
+          <h2 className="text-lg md:text-xl lg:text-2xl font-bold">{t('homepage.popularCategories')}</h2>
+          <Link to="/products" className="text-sm md:text-base text-primary-600 hover:text-primary-700 flex items-center gap-1">
             مشاهده همه
-            <ArrowLeft size={20} className="rtl-flip" />
+            <ArrowLeft size={16} className="md:w-5 md:h-5 rtl-flip" />
           </Link>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3 md:gap-4">
           {categories.map((category) => (
             <Link
               key={category.id}
               to={category.link}
-              className={`${category.color} rounded-xl p-6 text-center hover:shadow-lg transition-shadow`}
+              className={`${category.color} rounded-lg md:rounded-xl p-4 md:p-6 text-center hover:shadow-lg transition-shadow`}
             >
-              <div className="text-4xl mb-2">{category.icon}</div>
-              <div className="text-sm font-medium text-gray-800">{category.name}</div>
+              <div className="text-3xl md:text-4xl mb-1 md:mb-2">{category.icon}</div>
+              <div className="text-xs md:text-sm font-medium text-gray-800">{category.name}</div>
             </Link>
           ))}
         </div>
@@ -150,14 +150,14 @@ export default function HomePage() {
 
       {/* Featured Products */}
       <section className="container mx-auto px-4">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold">{t('homepage.featuredProducts')}</h2>
-          <Link to="/products" className="text-primary-600 hover:text-primary-700 flex items-center gap-1">
+        <div className="flex items-center justify-between mb-4 md:mb-6">
+          <h2 className="text-lg md:text-xl lg:text-2xl font-bold">{t('homepage.featuredProducts')}</h2>
+          <Link to="/products" className="text-sm md:text-base text-primary-600 hover:text-primary-700 flex items-center gap-1">
             مشاهده همه
-            <ArrowLeft size={20} className="rtl-flip" />
+            <ArrowLeft size={16} className="md:w-5 md:h-5 rtl-flip" />
           </Link>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 md:gap-4">
           {featuredProducts.map((product) => (
             <Link
               key={product.id}

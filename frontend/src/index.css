@@ -9,6 +9,19 @@
   min-height: 100vh;
 }
 
+/* Responsive utilities */
+@media (max-width: 320px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 2560px) {
+  .container {
+    max-width: 2400px;
+  }
+}
+
 @layer base {
   * {
     @apply border-gray-200;

@@ -5,6 +5,15 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      'xs': '320px',    // Mobile S
+      'sm': '375px',    // Mobile M  
+      'md': '425px',    // Mobile L
+      'lg': '768px',    // Tablet
+      'xl': '1024px',   // Laptop
+      '2xl': '1440px',  // Laptop L
+      '3xl': '2560px',  // 4K
+    },
     extend: {
       fontFamily: {
         'sans': ['Vazirmatn', 'system-ui', 'sans-serif'],
@@ -38,6 +47,18 @@ export default {
       spacing: {
         '128': '32rem',
         '144': '36rem',
+      },
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: '1rem',
+          'xs': '0.75rem',
+          'sm': '1rem',
+          'lg': '1.5rem',
+          'xl': '2rem',
+          '2xl': '4rem',
+          '3xl': '6rem',
+        },
       },
     },
   },
