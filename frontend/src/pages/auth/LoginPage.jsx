@@ -39,9 +39,6 @@ export default function LoginPage() {
       })
 
       if (error) {
-        console.error('Login error:', error)
-        
-        // Show specific error messages
         if (error.message?.includes('Invalid login credentials')) {
           setError('ایمیل یا رمز عبور اشتباه است')
         } else if (error.message?.includes('Email not confirmed')) {
@@ -52,18 +49,11 @@ export default function LoginPage() {
       } else if (!data?.session) {
         setError('خطا در ایجاد نشست. لطفا دوباره تلاش کنید')
       } else {
-        // Login successful
-        console.log('Login successful:', data)
-        
-        // Redirect based on user type and if international
         const userType = data?.user?.user_metadata?.user_type || 'buyer'
         const isInternational = data?.user?.user_metadata?.is_international
         const language = data?.user?.user_metadata?.language
         
-        console.log('User type:', userType, 'International:', isInternational, 'Language:', language)
-        
         if (userType === 'vendor') {
-          // International vendors go to international dashboard
           if (isInternational || language !== 'fa') {
             navigate('/vendor/international')
           } else {

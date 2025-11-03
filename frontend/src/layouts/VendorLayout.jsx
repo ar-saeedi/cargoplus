@@ -18,12 +18,10 @@ export default function VendorLayout() {
   const location = useLocation()
   const { user } = useAuthStore()
   
-  // REDIRECT INTERNATIONAL VENDORS TO INTERNATIONAL DASHBOARD
   const isInternational = user?.user_metadata?.is_international === true || user?.user_metadata?.is_international === 'true'
   const language = user?.user_metadata?.language
   
   if (isInternational || (language && language !== 'fa')) {
-    console.log('International vendor detected, redirecting to /vendor/international')
     return <Navigate to="/vendor/international" replace />
   }
 

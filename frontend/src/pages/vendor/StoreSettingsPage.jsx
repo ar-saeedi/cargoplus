@@ -191,7 +191,6 @@ export default function StoreSettingsPage() {
   const textDir = isInternational ? 'ltr' : 'rtl'
   const textAlign = isInternational ? 'text-left' : 'text-right'
   
-  // Load existing vendor data
   useEffect(() => {
     const loadVendorData = async () => {
       setLoading(true)

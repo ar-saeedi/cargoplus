@@ -88,8 +88,6 @@ export default function RegisterBuyerPage() {
       })
 
       if (error) {
-        console.error('Registration error:', error)
-        // Show specific error messages
         let errorMessage = 'خطا در ثبت‌نام. لطفا دوباره تلاش کنید'
         
         if (error.message?.includes('already registered')) {
@@ -104,17 +102,13 @@ export default function RegisterBuyerPage() {
         
         setErrors({ general: errorMessage })
       } else {
-        // Check if email confirmation is required
         if (data?.user && !data?.session) {
-          // Email confirmation required - redirect to verify page
           navigate('/auth/verify-email')
         } else if (data?.session) {
-          // Auto-logged in - go to dashboard
           navigate('/dashboard')
         }
       }
     } catch (err) {
-      console.error('Unexpected error:', err)
       setErrors({ general: err.message || 'خطایی رخ داده است. لطفا دوباره تلاش کنید' })
     } finally {
       setLoading(false)

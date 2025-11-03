@@ -3,16 +3,13 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://placeholder.supabase.co'
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'placeholder-key'
 
-// Create client with placeholder values if env vars are missing
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
-// Check if Supabase is properly configured
 export const isSupabaseConfigured = () => {
   return supabaseUrl !== 'https://placeholder.supabase.co' && 
          supabaseAnonKey !== 'placeholder-key'
 }
 
-// Auth helpers
 export const auth = {
   signUp: async ({ email, password, fullName, phone, userType = 'buyer', companyName, businessType, address, city, country, postalCode, isInternational = false, language = 'fa' }) => {
     if (!isSupabaseConfigured()) {
@@ -52,9 +49,6 @@ export const auth = {
         email,
         password,
       })
-      
-      // Log for debugging
-      console.log('Supabase signIn response:', { data, error })
       
       return { data, error }
     } catch (err) {
