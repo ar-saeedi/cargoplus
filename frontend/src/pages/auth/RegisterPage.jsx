@@ -71,39 +71,44 @@ export default function RegisterPage() {
               className="group relative overflow-hidden rounded-2xl border-2 border-gray-200 hover:border-primary-600 transition-all duration-300 hover:shadow-xl"
             >
               <div className="p-8 text-center">
-                <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-lg">
                   <Store className="text-white" size={40} />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">
                   ثبت‌نام فروشنده
                 </h3>
+                <h4 className="text-lg font-semibold text-blue-600 mb-3">
+                  Vendor Registration
+                </h4>
                 <p className="text-gray-600 mb-6">
                   برای فروش محصولات و راه‌اندازی فروشگاه آنلاین
+                  <br />
+                  <span className="text-sm">Sell globally, manage easily</span>
                 </p>
                 <ul className="text-right space-y-2 text-sm text-gray-600 mb-6">
                   <li className="flex items-center gap-2">
                     <span className="text-green-500">✓</span>
-                    <span>ایجاد فروشگاه اختصاصی</span>
+                    <span>Create your online store</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="text-green-500">✓</span>
-                    <span>مدیریت محصولات</span>
+                    <span>List unlimited products</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="text-green-500">✓</span>
-                    <span>گزارش فروش و آمار</span>
+                    <span>Access Iranian market</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="text-green-500">✓</span>
-                    <span>دسترسی به هزاران خریدار</span>
+                    <span>Multi-language dashboard</span>
                   </li>
                 </ul>
-                <div className="btn btn-primary w-full group-hover:bg-primary-700">
-                  ثبت‌نام به عنوان فروشنده
+                <div className="btn btn-primary w-full group-hover:bg-blue-700 bg-blue-600">
+                  Start Selling
                 </div>
               </div>
-              <div className="absolute top-0 right-0 bg-primary-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
-                B2B
+              <div className="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                International
               </div>
             </Link>
           </div>
