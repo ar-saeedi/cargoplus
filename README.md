@@ -132,7 +132,17 @@ cargoplus-marketplace/
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+**Proprietary License - All Rights Reserved**
+
+© 2025 CargoPlus Co. All Rights Reserved.
+
+This software is proprietary and confidential. Unauthorized copying, distribution, modification, or use of this software, via any medium, is strictly prohibited without explicit written permission from CargoPlus Co.
+
+**Developer:** Alireza Saeedi - Fullstack Developer Lead
+
+For licensing inquiries, contact: alirezasaeediofficial@gmail.com
+
+See the [LICENSE](LICENSE) file for complete details.
 
 ## 🤝 Contributing
 

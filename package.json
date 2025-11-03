@@ -2,6 +2,8 @@
   "name": "cargoplus-marketplace",
   "version": "1.0.0",
   "description": "CargoPlus - Persian B2B/B2C Marketplace - Similar to 1688.com",
+  "author": "Alireza Saeedi <alirezasaeediofficial@gmail.com>",
+  "license": "UNLICENSED",
   "private": true,
   "workspaces": [
     "frontend",
