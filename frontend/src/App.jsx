@@ -110,7 +110,7 @@ function App() {
       <Route path="/vendor" element={<VendorRoute><VendorLayout /></VendorRoute>}>
         <Route index element={<VendorDashboard />} />
         <Route path="products" element={<VendorProductsPage />} />
-        <Route path="products/new" element={<AddProductPage />} />
+        <Route path="products/new" element={<AddProductEnhanced />} />
         <Route path="orders" element={<VendorOrdersPage />} />
         <Route path="store-page" element={<StoreSettingsPage />} />
       </Route>
