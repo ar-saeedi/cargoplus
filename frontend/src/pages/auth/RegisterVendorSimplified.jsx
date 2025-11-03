@@ -1,7 +1,7 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { Mail, Lock, User, Building, Phone, Eye, EyeOff, Shield } from 'lucide-react'
-import ReCAPTCHA from 'react-google-recaptcha'
+import { Mail, Lock, Building, Phone, Eye, EyeOff } from 'lucide-react'
+import { Turnstile } from '@marsidev/react-turnstile'
 import { useAuthStore } from '../../store/authStore'
 import { supabase } from '../../lib/supabase'
 import Logo from '../../components/Logo'
@@ -9,7 +9,6 @@ import Logo from '../../components/Logo'
 export default function RegisterVendorSimplified() {
   const navigate = useNavigate()
   const register = useAuthStore((state) => state.register)
-  const recaptchaRef = useRef(null)
   
   const [formData, setFormData] = useState({
     firstName: '',
@@ -26,15 +25,13 @@ export default function RegisterVendorSimplified() {
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
 
-  // reCAPTCHA site key (you can get this from Google reCAPTCHA)
-  // For now using test key - replace with your real key
-  const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' // Test key
+  // Cloudflare Turnstile Site Key (1x00000000000000000000AA = test key, always passes)
+  // For production, get free key from Cloudflare Dashboard
+  const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || '1x00000000000000000000AA'
 
-  const onCaptchaChange = (value) => {
-    if (value) {
-      setCaptchaVerified(true)
-      setErrors(prev => ({ ...prev, captcha: '' }))
-    }
+  const onCaptchaVerify = (token) => {
+    setCaptchaVerified(true)
+    setErrors(prev => ({ ...prev, captcha: '' }))
   }
 
   const countryCodes = [
@@ -274,13 +271,15 @@ export default function RegisterVendorSimplified() {
               {errors.phone && <span className="text-xs text-red-600 text-left block">{errors.phone}</span>}
             </div>
 
-            {/* reCAPTCHA */}
+            {/* Cloudflare Turnstile CAPTCHA */}
             <div className="flex flex-col items-center">
-              <ReCAPTCHA
-                ref={recaptchaRef}
-                sitekey={RECAPTCHA_SITE_KEY}
-                onChange={onCaptchaChange}
-                theme="light"
+              <Turnstile
+                siteKey={TURNSTILE_SITE_KEY}
+                onSuccess={onCaptchaVerify}
+                options={{
+                  theme: 'light',
+                  size: 'normal',
+                }}
               />
               {errors.captcha && (
                 <span className="text-xs text-red-600 mt-2 text-center">{errors.captcha}</span>
