@@ -39,7 +39,7 @@ export default function Header({ onMenuClick }) {
   }
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
+    <header className="bg-white shadow-md sticky top-0 z-[100]">
       {/* Main Header Bar */}
       <div className="border-b border-gray-200">
         <div className="container mx-auto px-4">
@@ -125,7 +125,7 @@ export default function Header({ onMenuClick }) {
                     </button>
 
                     {showUserMenu && (
-                      <div className="absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-2xl border py-2 z-50">
+                      <div className="absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-2xl border py-2 z-[200]">
                         <div className="px-4 py-3 border-b">
                           <p className="font-medium text-gray-900">{user?.user_metadata?.full_name || 'کاربر'}</p>
                           <p className="text-sm text-gray-500 truncate" dir="ltr">{user?.email}</p>
