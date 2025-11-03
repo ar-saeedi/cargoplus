@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { Mail, Lock, User, Building, Phone, Eye, EyeOff } from 'lucide-react'
+import { Mail, Lock, User, Building, Phone, Eye, EyeOff, Shield } from 'lucide-react'
+import ReCAPTCHA from 'react-google-recaptcha'
 import { useAuthStore } from '../../store/authStore'
 import { supabase } from '../../lib/supabase'
 import Logo from '../../components/Logo'
@@ -8,6 +9,7 @@ import Logo from '../../components/Logo'
 export default function RegisterVendorSimplified() {
   const navigate = useNavigate()
   const register = useAuthStore((state) => state.register)
+  const recaptchaRef = useRef(null)
   
   const [formData, setFormData] = useState({
     firstName: '',
@@ -20,8 +22,20 @@ export default function RegisterVendorSimplified() {
     agreeToTerms: false,
   })
   const [showPassword, setShowPassword] = useState(false)
+  const [captchaVerified, setCaptchaVerified] = useState(false)
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
+
+  // reCAPTCHA site key (you can get this from Google reCAPTCHA)
+  // For now using test key - replace with your real key
+  const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' // Test key
+
+  const onCaptchaChange = (value) => {
+    if (value) {
+      setCaptchaVerified(true)
+      setErrors(prev => ({ ...prev, captcha: '' }))
+    }
+  }
 
   const countryCodes = [
     { code: '+1', country: 'US/CA', flag: '🇺🇸' },
@@ -82,6 +96,7 @@ export default function RegisterVendorSimplified() {
       newErrors.password = 'Password must be at least 6 characters'
     }
     if (!formData.companyName.trim()) newErrors.companyName = 'Company name is required'
+    if (!captchaVerified) newErrors.captcha = 'Please verify you are not a robot'
     if (!formData.agreeToTerms) newErrors.agreeToTerms = 'You must agree to the terms'
 
     setErrors(newErrors)
@@ -314,13 +329,18 @@ export default function RegisterVendorSimplified() {
               {errors.phone && <span className="text-xs text-red-600 text-left block">{errors.phone}</span>}
             </div>
 
-            {/* Verify Button Placeholder */}
-            <button
-              type="button"
-              className="w-full py-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-gray-400 transition-colors"
-            >
-              » Please click to verify
-            </button>
+            {/* reCAPTCHA */}
+            <div className="flex flex-col items-center">
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={RECAPTCHA_SITE_KEY}
+                onChange={onCaptchaChange}
+                theme="light"
+              />
+              {errors.captcha && (
+                <span className="text-xs text-red-600 mt-2 text-center">{errors.captcha}</span>
+              )}
+            </div>
 
             {/* Terms */}
             <div className="text-left">
