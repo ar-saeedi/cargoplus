@@ -36,7 +36,7 @@ import AddressesPage from './pages/dashboard/AddressesPage'
 import VendorDashboard from './pages/vendor/VendorDashboard'
 import VendorProductsPage from './pages/vendor/VendorProductsPage'
 import VendorOrdersPage from './pages/vendor/VendorOrdersPage'
-import AddProductPage from './pages/vendor/AddProductPage'
+import AddProductEnhanced from './pages/vendor/AddProductEnhanced'
 import StoreSettingsPage from './pages/vendor/StoreSettingsPage'
 
 // Other Pages
@@ -119,7 +119,7 @@ function App() {
       <Route path="/vendor/international" element={<VendorRoute><VendorInternationalLayout /></VendorRoute>}>
         <Route index element={<VendorDashboard />} />
         <Route path="products" element={<VendorProductsPage />} />
-        <Route path="products/new" element={<AddProductPage />} />
+        <Route path="products/new" element={<AddProductEnhanced />} />
         <Route path="orders" element={<VendorOrdersPage />} />
         <Route path="store-page" element={<StoreSettingsPage />} />
       </Route>
