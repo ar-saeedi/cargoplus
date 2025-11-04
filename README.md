@@ -103,32 +103,6 @@ yarn dev
 - **Frontend**: http://localhost:5173
 - **Backend**: http://localhost:9000
 
-## 📁 Project Structure
-
-\`\`\`
-cargoplus-marketplace/
-├── frontend/                 # React Frontend
-│   ├── src/
-│   │   ├── components/      # Reusable components
-│   │   ├── pages/           # Page components
-│   │   ├── layouts/         # Layout components
-│   │   ├── lib/             # Third-party integrations
-│   │   ├── store/           # State management (Zustand)
-│   │   ├── utils/           # Utility functions
-│   │   └── locales/         # i18n translation files
-│   └── public/              # Static assets
-├── backend/                  # MedusaJS Backend (Future)
-│   ├── src/
-│   │   ├── api/             # API routes
-│   │   ├── models/          # Database models
-│   │   ├── services/        # Business logic
-│   │   └── subscribers/     # Event handlers
-│   └── medusa-config.js
-├── README.md
-├── SETUP.md                  # Detailed setup guide
-├── DEPLOYMENT.md             # Production deployment guide
-└── package.json
-\`\`\`
 
 ## 📄 License
 
